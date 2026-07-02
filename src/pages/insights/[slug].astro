@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header'
+import Cta from '../../sections/Cta.astro'
+import Contact from '../../sections/Contact.astro'
+import Footer from '../../sections/Footer.astro'
+import FloatingButtons from '../../sections/FloatingButtons.astro'
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'choosing-event-venue-guide' }, props: {
+      title: 'Choosing the Right Event Venue: A Complete Guide for Malaysian Brands',
+      date: '12 Jun 2026',
+      category: 'Event Strategy',
+      content: [
+        { heading: 'Why venue matters more than you think', body: 'The venue sets the tone for your entire event. It\'s the first thing your guests see, the backdrop for every photo, and the framework that determines what\'s possible — from catering options to AV capabilities. For Malaysian brands, the choice is particularly rich: from the soaring atria of KLCC to the industrial charm of Sentul Depot, from beachfront resorts in Langkawi to heritage shophouses in Penang.' },
+        { heading: 'Start with your event objectives', body: 'Before you even look at venues, clarify what you\'re trying to achieve. A product launch needs different energy than a strategic retreat. A wedding reception prioritises different amenities than a trade show. Write down your top three objectives and use them as your filter. Every venue will try to sell you on its features — your objectives keep you focused on what matters.' },
+        { heading: 'Capacity vs. flow', body: 'Don\'t just count heads. Consider how people will move through the space. A 1,000-person venue can feel empty with 300 guests if the layout is wrong. Look for venues with flexible floor plans, multiple rooms or zones, and good flow between arrival, main event, dining, and breakout areas.' },
+        { heading: 'Technical infrastructure', body: 'In 2026, event technology is non-negotiable. Check for: reliable high-speed WiFi (dedicated line preferred), adequate power distribution for AV and lighting, rigging points for lighting and screens, acoustics and sound isolation, backup power options. Many Malaysian venues have upgraded post-pandemic — but always verify in person.' },
+        { heading: 'Accessibility and logistics', body: 'Consider your guests\' journey: proximity to airports or public transit, parking capacity and valet options, hotel accommodations nearby (or on-site), loading dock access for production trucks, elevator and ramp access for all guests. For KL venues, traffic patterns around event timing matter immensely.' },
+        { heading: 'Budget beyond the rental fee', body: 'The venue rental is just the start. Factor in: mandatory in-house catering minimums, security deposits and insurance requirements, overtime and cleaning fees, AV and technical surcharges, parking validation costs. Ask for an all-in estimate before making your decision. A venue that seems affordable on paper can balloon fast.' },
+        { heading: 'The walkthrough checklist', body: 'When you visit a venue, bring this checklist: note natural light and how it changes through the day, test the acoustics (clap, speak, play music), check restroom quantity and proximity, inspect kitchen capabilities if catering is involved, verify storage and green room spaces, talk to the venue coordinator about restrictions. Trust your instinct — if something feels off during the walkthrough, it will feel off during the event.' },
+      ],
+    }},
+    { params: { slug: '2026-event-trends-immersive-tech' }, props: {
+      title: '2026 Event Trends: Immersive Tech, Sustainable Production & Hyper-Personalisation',
+      date: '28 May 2026',
+      category: 'Trends',
+      content: [
+        { heading: 'AI-powered guest journeys', body: 'Artificial intelligence is transforming how guests experience events. From AI-driven matchmaking at networking events to personalised schedules that adapt in real-time, the era of one-size-fits-all event design is ending. We\'re seeing clients request AI-generated content walls that respond to audience sentiment, chatbots that handle guest queries across multiple languages, and data-driven insights that help organisers understand which moments resonated most.' },
+        { heading: 'Zero-waste production', body: 'Sustainability is no longer a nice-to-have — it\'s a mandate. The shift toward zero-waste event production is accelerating, with modular, reusable structures replacing single-use set builds. LED walls replace printed backdrops. Digital invites replace paper. We\'re working with venues that have eliminated single-use plastics and suppliers who offer carbon-neutral logistics. The challenge is making sustainable choices look luxurious — and the best agencies are proving it\'s possible.' },
+        { heading: 'Hyper-personalisation at scale', body: 'Guests increasingly expect events to feel personal. Through pre-event surveys, registration data, and even social media analysis, we\'re creating bespoke experiences at scale: custom welcome messages on screens, personalised meal preferences communicated seamlessly to catering, targeted networking suggestions, and post-event content curated to each attendee\'s interests. The technology exists — the art is in making it feel human.' },
+        { heading: 'Hybrid is here to stay', body: 'While in-person events have roared back, hybrid isn\'t disappearing. The smartest event strategies now treat virtual attendees as first-class participants: dedicated camera angles, interactive Q&A tools, virtual networking rooms, and on-demand content that lives beyond the event date. The key difference from 2020: hybrid is now a design choice, not a pandemic necessity. It\'s used intentionally to extend reach, not as a fallback.' },
+        { heading: 'Biophilic design and sensory experiences', body: 'The hottest trend in event design is bringing the outside in. Living walls, natural materials, circadian lighting that mimics daylight cycles, and scent design are being used to create environments that feel good at a physiological level. Malaysian venues are uniquely positioned here — our tropical landscape offers incredible opportunities for indoor-outdoor event flow that European venues can only dream of.' },
+      ],
+    }},
+    { params: { slug: 'three-city-launch-72-hours' }, props: {
+      title: 'How We Produced a 3-City Launch in 72 Hours',
+      date: '15 Apr 2026',
+      category: 'Behind the Scenes',
+      content: [
+        { heading: 'The Brief', body: 'A major tech brand needed to launch a new product simultaneously in Penang, Kuala Lumpur, and Johor Bahru — three cities, three audiences, one coordinated reveal. The catch? We had 72 hours from greenlight to doors open. This is the story of how we pulled it off.' },
+        { heading: 'Hour 1-6: The war room', body: 'The first six hours were pure strategy. We assembled three production teams — one per city — and established a central command in KL. Each city team had a producer, a tech lead, and a creative lead. We used a shared Slack channel, live Google Sheets for task tracking, and a 30-minute all-hands standup every six hours. The key decision: use identical floor plans in each city so our production team could work from a single technical blueprint.' },
+        { heading: 'Hour 6-24: Sourcing and logistics', body: 'With the blueprint locked, we activated our vendor network. In Penang, we secured a heritage hotel ballroom. In KL, a tech-focused co-working space. In JB, a brand-new convention hall. Each venue was selected for its existing AV infrastructure — we didn\'t have time for full builds. We pre-ordered identical AV kits for each location and arranged overnight trucking. Catering, registration staff, photographers — all booked within 18 hours.' },
+        { heading: 'Hour 24-48: Installation and rehearsals', body: 'All three crews installed simultaneously. The Penang team reported a projector issue at hour 30; we overnighted a replacement from KL. The KL team\'s WiFi failed during load testing; we deployed a dedicated 4G backup solution. The JB team — the smoothest of the three — finished six hours ahead of schedule and sent their crew to help Penang. Each city ran a full tech rehearsal at hour 44. All three passed.' },
+        { heading: 'Hour 48-72: Event day and lessons learned', body: 'The launches ran back-to-back across time zones: Penang at 10am, KL at 3pm, JB at 8pm. The KL event was the largest with 200 guests; Penang and JB had 80-100 each. All three were live-streamed into each other, creating a national moment. The biggest lesson: invest in redundant systems. The KL WiFi issue would have been catastrophic without the 4G backup. We also learned that identical floor plans were the single best decision — it made troubleshooting across cities trivial.' },
+      ],
+    }},
+  ]
+}
+
+const a = Astro.props
+---
+
+<Layout title={`${a.title} — Double Brain Creative & Event`}>
+  <Header client:load />
+
+  <section class="pt-32 pb-16 bg-bg-dark text-white">
+    <div class="max-w-[800px] mx-auto px-6 lg:px-16">
+      <div class="flex items-center gap-3 text-xs text-white/40 mb-6">
+        <time>{a.date}</time>
+        <span class="w-px h-3 bg-white/20" />
+        <span class="text-accent font-medium">{a.category}</span>
+      </div>
+      <h1 class="font-heading text-[clamp(2rem,4vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em] mb-6">{a.title}</h1>
+    </div>
+  </section>
+
+  <article class="py-16 bg-white">
+    <div class="max-w-[800px] mx-auto px-6 lg:px-16">
+      {a.content.map((section) => (
+        <div class="mb-12">
+          <h2 class="font-heading text-xl font-bold text-primary mb-4">{section.heading}</h2>
+          <p class="text-text-light leading-relaxed text-[1.05rem]">{section.body}</p>
+        </div>
+      ))}
+      <div class="pt-8 border-t border-gray-100">
+        <a href="/insights" class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:gap-3 transition-all">
+          &larr; Back to insights
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <Cta />
+  <Contact />
+  <Footer />
+  <FloatingButtons />
+</Layout>

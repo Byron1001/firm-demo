@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header';
+import Careers from '../sections/Careers.astro';
+import Footer from '../sections/Footer.astro';
+import FloatingButtons from '../sections/FloatingButtons.astro';
+---
+
+<Layout>
+  <Header client:load />
+  <div class="pt-24">
+    <Careers />
+  </div>
+  <Footer />
+  <FloatingButtons />
+</Layout>

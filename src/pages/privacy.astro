@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header';
+import Footer from '../sections/Footer.astro';
+import FloatingButtons from '../sections/FloatingButtons.astro';
+---
+
+<Layout>
+  <Header client:load />
+  <div class="pt-32 pb-20 bg-white">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-10 h-px bg-accent" />
+        <span class="text-xs font-semibold tracking-[0.15em] uppercase text-accent">Legal</span>
+      </div>
+      <h1 class="font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.15] tracking-[-0.02em] mb-8">Privacy Policy</h1>
+
+      <div class="prose prose-gray max-w-none text-text-light leading-relaxed space-y-6">
+        <p class="text-primary font-semibold">Last updated: June 2026</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">1. Information We Collect</h2>
+        <p>Double Brain Creative &amp; Event Sdn Bhd ("we," "us," or "our") collects information you provide when you submit an event inquiry, booking request, or contact form through our website, including your name, email address, phone number, event type, date preferences, and details about your event requirements. We also collect standard web analytics data such as IP address, browser type, and pages visited.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">2. How We Use Your Information</h2>
+        <p>We use the information you provide to respond to your event inquiries, communicate with you about event planning and coordination, provide quotations and proposals, and improve our event management services. We do not sell, rent, or share your personal information with third parties for their marketing purposes.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">3. Confidentiality</h2>
+        <p>We treat all information submitted through our website with strict confidentiality. Event details, budget information, and personal data shared with us during the inquiry and planning process are kept secure and used solely for the purpose of delivering our event management services.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">4. Data Security</h2>
+        <p>We implement reasonable security measures to protect your information from unauthorized access, alteration, or disclosure. Our website uses SSL/TLS encryption for data transmission.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">5. Third-Party Services</h2>
+        <p>We may use third-party services for website hosting, analytics, email delivery, and event management tools. These service providers have access to your information only to perform specific tasks on our behalf and are bound by confidentiality agreements.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">6. Your Rights</h2>
+        <p>You have the right to request access to, correction of, or deletion of your personal data held by us. To exercise these rights, please contact us at privacy@doublebraincreative.com.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">7. Cookies</h2>
+        <p>Our website uses essential cookies for functionality. We do not use tracking cookies for advertising purposes. You can control cookie settings through your browser preferences.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">8. Contact Us</h2>
+        <p>If you have questions about this Privacy Policy, please contact us at privacy@doublebraincreative.com or call +60 3-1234 5678.</p>
+      </div>
+    </div>
+  </div>
+  <Footer />
+  <FloatingButtons />
+</Layout>

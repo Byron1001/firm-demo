@@ -1,0 +1,73 @@
+---
+let stats = [
+  { val: 270, suffix: '+', label: 'Projects Delivered', desc: 'Big stages, small details. Each one designed to leave a mark.', img: '/images/sections/stats-01.jpg' },
+  { val: 90, suffix: '%', label: 'Loyal Clients', desc: 'Our clients love to come back, proof that true partnership lasts.', img: '/images/sections/stats-02.jpg' },
+  { val: 12, suffix: '+', label: 'Years Experience', desc: 'One team. Twelve years of craft. Countless stories told.', img: '/images/sections/stats-04.jpg' },
+  { val: 0, suffix: '', label: 'Creative Ideas', desc: 'That\u2019s ideas, not coffee. Brilliant ones, brewed daily.', img: '/images/sections/stats-03.jpg', infinite: true },
+]
+---
+
+<section class="py-[120px] max-sm:py-20 bg-bg-alt overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12 reveal">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-10 h-px bg-accent" />
+      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">By the Numbers</span>
+    </div>
+    <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] max-w-[500px] reveal reveal-delay-1">
+      Where Passion Meets Precision
+    </h2>
+  </div>
+
+  <div class="overflow-x-auto pb-6 scrollbar-hide">
+    <div class="flex gap-6 px-6 lg:px-16 w-max stagger-reveal" id="stats-track">
+      {stats.map((s, idx) => (
+        <div class="group relative w-[340px] sm:w-[380px] aspect-square overflow-hidden rounded-2xl bg-bg-dark shrink-0">
+          <img src={s.img} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <div class="font-heading text-[clamp(3rem,6vw,4.5rem)] font-bold text-white leading-none mb-1">
+              {s.infinite ? (
+                <span class="text-accent">&#x221e;</span>
+              ) : (
+                <><span class="stat-number" data-target={s.val}>0</span><span class="text-white">{s.suffix}</span></>
+              )}
+            </div>
+            <p class="font-heading text-sm font-semibold text-accent tracking-[0.1em] uppercase mb-2">{s.label}</p>
+            <p class="text-white/50 text-sm leading-relaxed max-w-[280px]">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initScrubbedStats() {
+    const track = document.getElementById('stats-track') as HTMLElement;
+    const counters = document.querySelectorAll<HTMLElement>('.stat-number');
+    if (!track || !counters.length) return;
+
+    // state = f(scrollPosition): vertical page scroll through this section
+    const section = track.closest('section')!;
+
+    function update() {
+      const rect = section.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const sectionH = rect.height;
+      const progress = sectionH > viewH
+        ? Math.max(0, Math.min(1, -rect.top / (sectionH - viewH)))
+        : 0;
+
+      counters.forEach(el => {
+        const target = parseInt(el.dataset.target || '0', 10);
+        el.textContent = Math.round(progress * target).toString();
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+
+    update();
+  }
+
+  document.addEventListener('DOMContentLoaded', initScrubbedStats);
+</script>

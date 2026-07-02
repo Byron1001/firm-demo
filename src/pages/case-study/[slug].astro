@@ -1,0 +1,153 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header'
+import Cta from '../../sections/Cta.astro'
+import Contact from '../../sections/Contact.astro'
+import Footer from '../../sections/Footer.astro'
+import FloatingButtons from '../../sections/FloatingButtons.astro'
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'petronas-leadership-summit' }, props: {
+      title: 'Petronas Leadership Summit',
+      category: 'Corporate Conference',
+      location: 'Kuala Lumpur',
+      hero: '/images/sections/portfolio-03.jpg',
+      stats: { participants: '500+', duration: '3 Days', speakers: '20+' },
+      overview: 'A flagship leadership summit bringing together 500+ executives for strategic dialogue and vision-setting. We transformed the Grand Ballroom into an immersive environment designed for connection, inspiration, and forward-thinking conversations.',
+      challenge: 'The client needed a venue transformation that balanced gravitas with warmth — a setting where Malaysia\'s top business leaders could engage in candid strategic dialogue while feeling the weight of the occasion.',
+      solution: 'We designed a tiered auditorium layout with warm ambient lighting, curved LED screens for presentations, and curated networking zones with interactive digital installations. Every detail, from the acoustic treatment to the wayfinding signage, was designed to keep attendees focused on the content.',
+    }},
+    { params: { slug: 'airasia-annual-gala' }, props: {
+      title: 'AirAsia Annual Gala',
+      category: 'Gala & Awards',
+      location: 'Kuala Lumpur',
+      hero: '/images/sections/portfolio-02.jpg',
+      stats: { participants: '800+', duration: '1 Night', awards: '12' },
+      overview: 'An unforgettable evening celebrating a decade of innovation in aviation and hospitality. The gala featured a red carpet arrival, multi-course fine dining, live performances, and an awards ceremony recognizing excellence across the organization.',
+      challenge: 'Creating a high-energy gala that reflected AirAsia\'s bold, youthful brand while maintaining the sophistication expected of a milestone anniversary celebration.',
+      solution: 'We used a dynamic stage design with programmable LED walls that shifted between brand moments, live feeds, and award presentations. The dinner service was choreographed for seamless transitions, and the after-party featured a live band and interactive photo experiences.',
+    }},
+    { params: { slug: 'grab-brand-launch' }, props: {
+      title: 'Grab Brand Launch 2025',
+      category: 'Product Launch',
+      location: 'Selangor',
+      hero: '/images/sections/portfolio-05.jpg',
+      stats: { participants: '300+', duration: '1 Day', demos: '6' },
+      overview: 'A high-energy product launch with immersive brand experiences and live entertainment. The event unveiled Grab\'s latest platform innovations to media, partners, and key stakeholders.',
+      challenge: 'Translating a digital product update into a tangible, memorable physical experience that the media and partners would talk about.',
+      solution: 'We designed interactive product demo pods where guests could experience the new features hands-on, supported by a main stage with a keynote presentation, customer testimonials, and a live Q&A. The space was designed as a journey, moving from brand history to future vision.',
+    }},
+    { params: { slug: 'shopeefest-malaysia' }, props: {
+      title: 'ShopeeFest Malaysia',
+      category: 'Brand Activation',
+      location: 'Kuala Lumpur',
+      hero: '/images/sections/portfolio-04.jpg',
+      stats: { participants: '12,000+', duration: '3 Days', brands: '50+' },
+      overview: 'Malaysia\'s biggest shopping festival brought to life with interactive zones and stage performances. A massive public-facing activation that drove brand engagement and sales.',
+      challenge: 'Managing crowd flow and engagement across a massive venue with 50+ brand booths, multiple stages, and thousands of visitors daily.',
+      solution: 'We created distinct color-coded zones with clear wayfinding, centralized rest areas, and a main stage schedule that kept energy high throughout the day. Each brand booth was designed with modular components for quick setup and takedown.',
+    }},
+    { params: { slug: 'celcomdigi-conference' }, props: {
+      title: 'CelcomDigi Conference',
+      category: 'Corporate Event',
+      location: 'Penang',
+      hero: '/images/sections/portfolio-06.jpg',
+      stats: { participants: '600+', duration: '2 Days', workshops: '8' },
+      overview: 'A milestone corporate conference uniting teams across Malaysia for strategic alignment, team building, and forward planning following the Celcom-Digi merger.',
+      challenge: 'Bringing together two organizational cultures into one unified event experience that celebrated the merger while looking ahead.',
+      solution: 'We designed a conference journey that acknowledged both legacies before converging into the shared future. Breakout workshops, team-building activities, and a gala dinner created organic cross-team connections.',
+    }},
+    { params: { slug: 'sunway-wedding-fair' }, props: {
+      title: 'Sunway Wedding Fair',
+      category: 'Wedding',
+      location: 'Selangor',
+      hero: '/images/sections/portfolio-01.jpg',
+      stats: { participants: '5,000+', duration: '2 Days', vendors: '80+' },
+      overview: 'A spectacular wedding fair showcasing the finest vendors, venues, and wedding inspirations. The largest wedding exhibition in the Klang Valley.',
+      challenge: 'Creating an aspirational environment that inspired couples while efficiently connecting them with vendors across a massive exhibition hall.',
+      solution: 'We designed themed walkway experiences (garden, ballroom, beach) that guided visitors through different wedding styles. Each vendor pod was designed to feel like a mini-inspiration booth rather than a sales counter.',
+    }},
+  ]
+}
+
+const p = Astro.props
+---
+
+<Layout title={`${p.title} — Double Brain Creative & Event`}>
+  <Header client:load />
+
+  <section class="relative h-[60vh] min-h-[500px] flex items-end pb-16 overflow-hidden bg-bg-dark">
+    <img src={p.hero} alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a] via-[#0f0f1a]/50 to-transparent" />
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-16 w-full">
+      <div class="flex items-center gap-3 text-accent text-xs font-semibold tracking-[0.15em] uppercase mb-4">
+        <span>{p.category}</span>
+        <span class="w-px h-3 bg-accent/50" />
+        <span>{p.location}</span>
+      </div>
+      <h1 class="font-heading text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white max-w-[700px]">
+        {p.title}
+      </h1>
+    </div>
+  </section>
+
+  <section class="py-[80px] bg-white border-b border-gray-100">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+      <div class="flex flex-wrap gap-12 mb-16">
+        <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.participants}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Participants</p>
+        </div>
+        <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.duration}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Duration</p>
+        </div>
+        {p.stats.speakers && <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.speakers}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Speakers</p>
+        </div>}
+        {p.stats.awards && <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.awards}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Awards</p>
+        </div>}
+        {p.stats.brands && <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.brands}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Brands</p>
+        </div>}
+        {p.stats.demos && <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.demos}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Demos</p>
+        </div>}
+        {p.stats.workshops && <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.workshops}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Workshops</p>
+        </div>}
+        {p.stats.vendors && <div class="text-center">
+          <p class="font-heading text-3xl font-bold text-primary">{p.stats.vendors}</p>
+          <p class="text-xs text-text-muted tracking-wider uppercase mt-1">Vendors</p>
+        </div>}
+      </div>
+
+      <div class="max-w-[800px]">
+        <p class="text-lg leading-relaxed text-primary mb-10">{p.overview}</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h2 class="font-heading text-sm font-semibold tracking-[0.15em] uppercase text-accent mb-4">The Challenge</h2>
+            <p class="text-text-light leading-relaxed">{p.challenge}</p>
+          </div>
+          <div>
+            <h2 class="font-heading text-sm font-semibold tracking-[0.15em] uppercase text-accent mb-4">Our Solution</h2>
+            <p class="text-text-light leading-relaxed">{p.solution}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+  <Contact />
+  <Footer />
+  <FloatingButtons />
+</Layout>

@@ -1,0 +1,61 @@
+---
+import { client } from '../lib/sanity'
+import { practiceAreasQuery } from '../lib/sanity.queries'
+
+let services = [
+  { num: '01', title: 'Corporate Events', desc: 'From corporate summits to annual dinners, we create experiences that fuel alignment and connection between audiences and business goals.', img: '/images/sections/pexels-corporate-2k.jpg', slug: 'corporate-events' },
+  { num: '02', title: 'Exhibitions', desc: 'Presence isn\'t enough. We design modular brand spaces that speak, perform and stick, with strategy and flair built into every wall.', img: '/images/sections/pexels-exhibition-2k.jpg', slug: 'exhibitions' },
+  { num: '03', title: 'Wedding Planning', desc: 'We turn once-in-a-lifetime moments into unforgettable memories. Designed to reflect your story, executed with meticulous care.', img: '/images/sections/pexels-wedding-2k.jpg', slug: 'wedding-planning' },
+  { num: '04', title: 'Branding & Design', desc: 'We build emotional power into every brand touchpoint. From visual identity to immersive brand spaces that leave a lasting mark.', img: '/images/sections/pexels-branding-2k.jpg', slug: 'branding-design' },
+  { num: '05', title: 'Sports', desc: 'From VIP lounges to brand arenas, we build emotional power into every play and help you win over fans.', img: '/images/sections/pexels-sports-2k.jpg', slug: 'sports' },
+]
+
+try {
+  const docs = await client.fetch(practiceAreasQuery)
+  if (docs?.length > 0) {
+    services = docs.map((d: any, i: number) => ({
+      num: String(i + 1).padStart(2, '0'),
+      title: d.title,
+      desc: d.description || services[i]?.desc || '',
+      img: d.image || services[i]?.img || services[0].img,
+      slug: (d.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || services[i]?.slug || '',
+    }))
+  }
+} catch {}
+---
+
+<section id="services" class="py-[120px] max-sm:py-20 bg-white">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-16">
+    <div class="flex items-center gap-3 mb-4 reveal">
+      <span class="w-10 h-px bg-accent" />
+      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">What We Do</span>
+    </div>
+    <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] reveal reveal-delay-1">
+      Our Expertise
+    </h2>
+  </div>
+
+  <div class="overflow-x-auto pb-8 scrollbar-hide">
+    <div class="flex gap-6 px-6 lg:px-16 w-max stagger-reveal">
+      {services.map((s) => (
+        <a href={`/services/${s.slug}`} class="group relative w-[340px] sm:w-[420px] aspect-[3/4] overflow-hidden rounded-2xl bg-bg-dark shrink-0" data-tilt>
+          <img
+            src={s.img}
+            alt={s.title}
+            class="w-full h-full object-cover transition-[transform,filter] duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <span class="text-accent font-heading text-sm font-semibold tracking-[0.15em] mb-2 block">{s.num}</span>
+            <h3 class="font-heading text-2xl font-bold text-white mb-2">{s.title}</h3>
+            <p class="text-white/50 text-sm leading-relaxed">{s.desc}</p>
+          </div>
+          <div class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

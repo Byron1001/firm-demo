@@ -1,0 +1,115 @@
+---
+import { client } from '../lib/sanity'
+import { testimonialsQuery } from '../lib/sanity.queries'
+
+let testimonials = [
+  { text: 'Double Brain Creative transformed our annual gala into an unforgettable experience. Every detail was flawless.', name: 'Sarah Lim', role: 'CEO', company: 'Lim Corporation', ccolor: '#1a3a5c', caseSlug: 'petronas-leadership-summit' },
+  { text: 'They planned our wedding and exceeded every expectation. The team listened to our vision and brought it to life beautifully.', name: 'Aisha & Ravi', role: 'Happy Couple', company: '', ccolor: '#d4a574', caseSlug: 'sunway-wedding-fair' },
+  { text: 'Our product launch was a massive success thanks to Double Brain. The creative direction and guest experience were world-class.', name: 'Kevin Tan', role: 'Marketing Director', company: 'TechGlobal', ccolor: '#00509d', caseSlug: 'grab-brand-launch' },
+  { text: 'We have partnered with Double Brain on multiple corporate events. Their professionalism and attention to detail are unmatched.', name: 'Diana Ong', role: 'CFO', company: 'Ong Holdings', ccolor: '#8b1a1a', caseSlug: 'celcomdigi-conference' },
+  { text: 'From concept to execution, Double Brain delivered a seamless experience. Our stakeholders were thoroughly impressed.', name: 'Michael Leong', role: 'VP Operations', company: 'Pioneer Group', ccolor: '#2e7d32', caseSlug: 'airasia-annual-gala' },
+  { text: 'The exhibition booth they designed for us at the trade show was the talk of the event. Traffic and leads exceeded all targets.', name: 'Priya Nair', role: 'Brand Manager', company: 'EvoTech', ccolor: '#6b21a8', caseSlug: 'shopeefest-malaysia' },
+  { text: 'Double Brain\'s creative team brought our brand identity to life in ways we never imagined. Our stakeholders were blown away.', name: 'James Wong', role: 'Creative Director', company: 'Maven Studio', ccolor: '#b91c1c', caseSlug: 'grab-brand-launch' },
+  { text: 'The corporate conference they handled for our leadership team was flawless. Every detail, from AV to catering, was perfect.', name: 'Lisa Chan', role: 'HR Director', company: 'Horizon Group', ccolor: '#0369a1', caseSlug: 'petronas-leadership-summit' },
+]
+
+try {
+  const docs = await client.fetch(testimonialsQuery)
+  if (docs?.length > 0) {
+    testimonials = docs.map((d: any) => ({
+      text: d.text, name: d.name, role: d.role || '',
+      company: '', ccolor: '#6b7280', caseSlug: 'petronas-leadership-summit'
+    }))
+  }
+} catch {}
+---
+
+<section id="testimonials" class="py-[120px] max-sm:py-20 bg-bg-dark text-white overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12">
+    <div class="flex items-center gap-3 mb-4 reveal">
+      <span class="w-10 h-px bg-accent" />
+      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Testimonials</span>
+    </div>
+    <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] reveal reveal-delay-1">
+      What Our Clients Say
+    </h2>
+  </div>
+
+  <div class="overflow-x-auto pb-6 scrollbar-hide" data-testimonials>
+    <div class="flex gap-6 px-6 lg:px-16 w-max stagger-reveal" data-testimonials-track>
+      {testimonials.map((t, i) => (
+        <div class="w-[420px] sm:w-[480px] bg-white/5 border border-white/10 p-10 rounded-2xl shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="text-accent text-6xl font-heading font-bold leading-none mb-4 opacity-20">&ldquo;</div>
+            <p class="text-[0.95rem] leading-relaxed text-white/70">{t.text}</p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-white/10">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent font-heading font-bold text-sm">
+                  {t.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                </div>
+                <div>
+                  <div class="font-semibold text-sm text-white">{t.name}</div>
+                  <div class="text-xs text-white/40">{t.role}</div>
+                </div>
+              </div>
+              {t.company && (
+                <div class="h-8 px-4 rounded-lg bg-white/10 flex items-center">
+                  <span class="text-xs font-bold tracking-[0.05em]" style={{ color: t.ccolor }}>{t.company}</span>
+                </div>
+              )}
+            </div>
+            {t.caseSlug && (
+              <a href={`/case-study/${t.caseSlug}`} class="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-white/30 hover:text-accent transition-colors">
+                see full case study
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 flex items-center justify-between reveal">
+    <div class="flex items-center gap-2 text-xs text-white/30" data-testimonials-counter>
+      <span class="text-white/60 font-medium" data-testimonials-current>01</span>
+      <span class="text-white/20">/</span>
+      <span data-testimonials-total>{String(testimonials.length).padStart(2, '0')}</span>
+    </div>
+    <div class="flex gap-2">
+      <button data-testimonials-prev class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:border-accent hover:text-accent transition-colors cursor-pointer bg-transparent" aria-label="Previous">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button data-testimonials-next class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:border-accent hover:text-accent transition-colors cursor-pointer bg-transparent" aria-label="Next">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('[data-testimonials-track]')
+    const current = document.querySelector('[data-testimonials-current]')
+    const total = document.querySelector('[data-testimonials-total]')
+    const prev = document.querySelector('[data-testimonials-prev]')
+    const next = document.querySelector('[data-testimonials-next]')
+
+    if (!track || !current || !prev || !next) return
+
+    const updateCounter = () => {
+      const scroll = track.scrollLeft
+      const card = track.querySelector('.w-\\[420px\\]')
+      if (!card) return
+      const cardWidth = card.offsetWidth + 24
+      const idx = Math.round(scroll / cardWidth)
+      current.textContent = String(Math.min(idx + 1, parseInt(total?.textContent || '1', 10))).padStart(2, '0')
+    }
+
+    track.addEventListener('scroll', updateCounter, { passive: true })
+    prev.addEventListener('click', () => { track.scrollBy({ left: -(480 + 24), behavior: 'smooth' }); setTimeout(updateCounter, 350) })
+    next.addEventListener('click', () => { track.scrollBy({ left: 480 + 24, behavior: 'smooth' }); setTimeout(updateCounter, 350) })
+  })
+</script>

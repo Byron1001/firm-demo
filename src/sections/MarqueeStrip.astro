@@ -1,0 +1,24 @@
+---
+const items = [
+  'Corporate Events',
+  'Exhibitions',
+  'Brand Activations',
+  'Wedding Planning',
+  'Sports Events',
+  'Product Launches',
+  'Live Experiences',
+]
+---
+
+<section class="py-16 overflow-hidden bg-bg-dark border-t border-b border-white/5">
+  <div class="flex overflow-hidden">
+    <div class="flex gap-12 animate-marquee whitespace-nowrap items-center">
+      {[...items, ...items].map((item, i) => (
+        <span key={i} class="font-heading text-[clamp(1.2rem,2.5vw,2rem)] font-bold text-white tracking-[-0.02em] uppercase flex items-center gap-12">
+          {item}
+          <span class="w-2 h-2 rounded-full bg-accent/40 inline-block" />
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

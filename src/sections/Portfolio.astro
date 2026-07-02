@@ -1,0 +1,40 @@
+---
+import PortfolioCarousel from '../components/PortfolioCarousel'
+import { client } from '../lib/sanity'
+import { galleryClientsQuery } from '../lib/sanity.queries'
+import { urlFor } from '../lib/sanity.image'
+
+let projects = [
+  { title: 'Petronas Leadership Summit', category: 'Corporate Conference', location: 'Kuala Lumpur', img: '/images/sections/portfolio-03.jpg', slug: 'petronas-leadership-summit' },
+  { title: 'AirAsia Annual Gala', category: 'Gala & Awards', location: 'Kuala Lumpur', img: '/images/sections/portfolio-02.jpg', slug: 'airasia-annual-gala' },
+  { title: 'Grab Brand Launch 2025', category: 'Product Launch', location: 'Selangor', img: '/images/sections/portfolio-05.jpg', slug: 'grab-brand-launch' },
+  { title: 'ShopeeFest Malaysia', category: 'Brand Activation', location: 'Kuala Lumpur', img: '/images/sections/portfolio-04.jpg', slug: 'shopeefest-malaysia' },
+  { title: 'CelcomDigi Conference', category: 'Corporate Event', location: 'Penang', img: '/images/sections/portfolio-06.jpg', slug: 'celcomdigi-conference' },
+  { title: 'Sunway Wedding Fair', category: 'Wedding', location: 'Selangor', img: '/images/sections/portfolio-01.jpg', slug: 'sunway-wedding-fair' },
+]
+
+try {
+  const docs = await client.fetch(galleryClientsQuery)
+  if (docs?.length > 0) {
+    projects = docs.map((d: any) => ({
+      title: d.name, category: d.industry || 'Event', location: '',
+      img: d.logo ? urlFor(d.logo).width(1000).height(667).url() : projects[0].img,
+      slug: (d.name || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'project',
+    }))
+  }
+} catch {}
+---
+
+<section id="portfolio" class="py-[120px] max-sm:py-20 overflow-hidden bg-surface">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-16">
+    <div class="flex items-center gap-3 mb-4 reveal">
+      <span class="w-10 h-px bg-accent" />
+      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Our Work</span>
+    </div>
+    <h2 class="font-heading text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.0] tracking-[-0.04em] max-w-[700px] reveal reveal-delay-1">
+      Selected<br />Projects
+    </h2>
+  </div>
+
+  <PortfolioCarousel projects={projects} client:load />
+</section>

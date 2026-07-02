@@ -1,0 +1,74 @@
+---
+const articles = [
+  {
+    date: '12 Jun 2026',
+    category: 'Event Strategy',
+    title: 'Choosing the Right Event Venue: A Complete Guide for Malaysian Brands',
+    desc: 'From KLCC to Sentul Depot — how to pick a venue that amplifies your brand narrative and delights your guests without breaking the budget.',
+    slug: 'choosing-event-venue-guide',
+  },
+  {
+    date: '28 May 2026',
+    category: 'Trends',
+    title: '2026 Event Trends: Immersive Tech, Sustainable Production & Hyper-Personalisation',
+    desc: 'The biggest shifts shaping events this year — from AI-powered guest journeys to zero-waste stage builds that look anything but minimal.',
+    slug: '2026-event-trends-immersive-tech',
+  },
+  {
+    date: '15 Apr 2026',
+    category: 'Behind the Scenes',
+    title: 'How We Produced a 3-City Launch in 72 Hours',
+    desc: 'Behind-the-scenes look at a high-stakes product launch across Penang, KL, and Johor — logistics, team coordination, and how we pulled it off.',
+    slug: 'three-city-launch-72-hours',
+  },
+]
+---
+
+<section id="insights" class="py-[120px] max-sm:py-20 bg-bg-dark text-white overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12">
+    <div class="flex items-center gap-3 mb-4 reveal">
+      <span class="w-10 h-px bg-accent" />
+      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Inside Double Brain</span>
+    </div>
+    <div class="flex items-end justify-between">
+      <h2 class="font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05] tracking-[-0.03em] max-w-[500px] reveal reveal-delay-1">
+        Insights & Stories
+      </h2>
+      <a href="/insights" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-white/50 hover:text-accent transition-colors reveal reveal-delay-2">
+        Explore our insights
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 grid grid-cols-1 md:grid-cols-3 gap-6 stagger-reveal">
+    {articles.map((a) => (
+      <article class="group bg-white/[0.03] border border-white/[0.06] rounded-2xl overflow-hidden hover:bg-white/[0.06] transition-colors duration-500">
+        <div class="p-8 flex flex-col h-full">
+          <div class="flex items-center gap-3 text-xs text-white/30 mb-4">
+            <time>{a.date}</time>
+            <span class="w-px h-3 bg-white/20" />
+            <span class="text-accent">{a.category}</span>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-white mb-3 group-hover:text-accent transition-colors">
+            {a.title}
+          </h3>
+          <p class="text-white/40 text-sm leading-relaxed flex-1 mb-6">
+            {a.desc}
+          </p>
+          <a href={`/insights/${a.slug}`} class="inline-flex items-center gap-2 text-sm font-semibold text-accent group-hover:gap-3 transition-all">
+            Read more
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mt-10 text-center sm:hidden reveal">
+    <a href="/insights" class="inline-flex items-center gap-2 text-sm font-semibold text-white/50 hover:text-accent transition-colors">
+      Explore our insights
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+    </a>
+  </div>
+</section>
