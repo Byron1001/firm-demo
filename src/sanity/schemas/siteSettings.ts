@@ -9,7 +9,7 @@ export default defineType({
       name: 'firmName',
       title: 'Company Name',
       type: 'string',
-      initialValue: 'Double Brain Creative & Event Sdn Bhd',
+      initialValue: 'Double Brain Creative & Event SDN BHD (202301030587(1524510-W))',
     }),
     defineField({
       name: 'tagline',
@@ -27,7 +27,7 @@ export default defineType({
       name: 'heroDescription',
       title: 'Hero Description',
       type: 'text',
-      initialValue: 'With creative vision and precision execution, Double Brain Creative & Event Sdn Bhd delivers unforgettable corporate events, weddings, branding, and exhibitions from three locations across Malaysia.',
+      initialValue: 'With creative vision and precision execution, Double Brain Creative & Event SDN BHD delivers unforgettable corporate events, weddings, branding, and exhibitions from three locations across Malaysia.',
     }),
     defineField({
       name: 'aboutDescription',

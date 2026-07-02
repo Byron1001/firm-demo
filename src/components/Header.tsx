@@ -115,7 +115,7 @@ export default function Header() {
         <a href="/" className="flex items-center gap-2.5">
           <span className="w-9 h-9 min-w-9 flex items-center justify-center" dangerouslySetInnerHTML={{ __html: ICONS['logo-ac'] }} />
           <span className="font-heading font-bold text-xl text-white">
-            Double Brain Creative &amp; Event
+            Double Brain Creative &amp; Event SDN BHD
           </span>
         </a>
 

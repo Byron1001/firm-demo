@@ -1,30 +1,28 @@
 ---
+import { asset } from '../lib/assets'
+
 const logos = [
-  { name: 'Petronas', color: '#00a19c', initials: 'PT' },
-  { name: 'AirAsia', color: '#e3170a', initials: 'AA' },
-  { name: 'Grab', color: '#00b14f', initials: 'GR' },
-  { name: 'Shopee', color: '#ee4d2d', initials: 'SP' },
-  { name: 'CelcomDigi', color: '#1e2a5e', initials: 'CD' },
-  { name: 'Nestlé', color: '#f7c325', initials: 'N' },
-  { name: 'Maxis', color: '#008dd2', initials: 'MX' },
-  { name: 'Sunway', color: '#f58220', initials: 'SW' },
-  { name: 'IOI', color: '#003d7a', initials: 'IO' },
-  { name: 'Prudential', color: '#00509d', initials: 'PR' },
-  { name: 'Top Glove', color: '#ba1f30', initials: 'TG' },
-  { name: 'IHH', color: '#009b77', initials: 'IH' },
-  { name: 'Maybank', color: '#fdd100', initials: 'MB' },
-  { name: 'CIMB', color: '#7e2429', initials: 'CB' },
-  { name: 'Gamuda', color: '#0033a0', initials: 'GA' },
-  { name: 'RHB', color: '#003d7a', initials: 'RH' },
+  { name: 'Petronas', img: asset('/images/clients/petronas.svg') },
+  { name: 'AirAsia', img: asset('/images/clients/airasia.svg') },
+  { name: 'Grab', img: asset('/images/clients/grab.svg') },
+  { name: 'Shopee', img: asset('/images/clients/shopee.svg') },
+  { name: 'CelcomDigi', img: asset('/images/clients/celcomdigi.png') },
+  { name: 'Nestlé', img: asset('/images/clients/nestle.svg') },
+  { name: 'Sunway', img: asset('/images/clients/sunway.svg') },
+  { name: 'IHH', img: asset('/images/clients/ihh.svg') },
+  { name: 'Maybank', img: asset('/images/clients/maybank.svg') },
+  { name: 'CIMB', img: asset('/images/clients/cimb.svg') },
+  { name: 'Gamuda', img: asset('/images/clients/gamuda.svg') },
+  { name: 'RHB', img: asset('/images/clients/rhb.png') },
 ]
 ---
 
 <section class="py-[120px] max-sm:py-20 bg-bg-alt overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12 reveal">
     <div class="flex items-center gap-3 mb-4 justify-center">
-      <span class="w-10 h-px bg-accent" />
+      <span class="w-10 h-px bg-accent bar-reveal" />
       <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Trusted By</span>
-      <span class="w-10 h-px bg-accent" />
+      <span class="w-10 h-px bg-accent bar-reveal" />
     </div>
     <p class="text-center text-text-light/60 text-sm max-w-[400px] mx-auto">
       We are proud to have worked with
@@ -35,10 +33,7 @@ const logos = [
     <div class="flex gap-10 animate-marquee w-max items-center">
       {[...logos, ...logos].map((l, i) => (
         <div key={i} class="flex items-center gap-3 whitespace-nowrap">
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] font-bold" style={{ backgroundColor: l.color }}>
-            {l.initials}
-          </div>
-          <span class="font-heading text-sm font-bold text-white/20">{l.name}</span>
+          <img src={l.img} alt={l.name} class="h-6 w-auto object-contain" loading="lazy" />
         </div>
       ))}
     </div>
@@ -47,11 +42,8 @@ const logos = [
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 reveal reveal-delay-1">
     <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
       {logos.map((l) => (
-        <div class="h-16 rounded-xl bg-surface border border-white/10 flex items-center gap-3 justify-center px-4 transition-[border-color,transform,box-shadow] duration-300 hover:border-accent/30 hover:-translate-y-0.5 hover:shadow-md">
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] font-bold shrink-0" style={{ backgroundColor: l.color }}>
-            {l.initials}
-          </div>
-          <span class="font-heading text-xs font-bold text-white/60">{l.name}</span>
+        <div class="h-16 rounded-xl bg-surface border border-white/10 flex items-center justify-center px-4 transition-[border-color,transform,box-shadow] duration-300 hover:border-accent/30 hover:-translate-y-0.5 hover:shadow-md">
+          <img src={l.img} alt={l.name} class="h-10 w-auto max-w-[100px] object-contain" loading="lazy" />
         </div>
       ))}
     </div>

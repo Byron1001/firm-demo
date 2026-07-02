@@ -2,17 +2,17 @@
 
 @theme {
   --color-primary: #ffffff;
-  --color-secondary: #2a2a2a;
-  --color-accent: #ff5a2a;
-  --color-accent-light: #ff8a66;
-  --color-accent-dark: #e04a1a;
-  --color-accent-secondary: #ff9a56;
-  --color-gold: #d4a574;
-  --color-surface: #0f0f0f;
-  --color-bg-alt: #1a1a1a;
-  --color-bg-dark: #080808;
+  --color-secondary: #1a2a3a;
+  --color-accent: #F38A14;
+  --color-accent-light: #95E06C;
+  --color-accent-dark: #c76e0e;
+  --color-accent-secondary: #C3F73A;
+  --color-accent-muted: #68B684;
+  --color-surface: #011627;
+  --color-bg-alt: #0a1f33;
+  --color-bg-dark: #000a14;
   --color-text-light: #9ca3af;
-  --color-text-muted: #6b7280;
+  --color-text-muted: #5a7a8a;
   --font-heading: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -118,14 +118,37 @@ html.lenis body {
   clip-path: inset(0 0 0 0);
 }
 
-.stagger-reveal > * {
+.bar-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.6s var(--ease-out);
+}
+.bar-reveal.bar-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+.stagger-reveal > *:not(.sticky-note) {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
-.stagger-reveal > *.revealed {
+.stagger-reveal > *:not(.sticky-note).revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.stack-card {
+  opacity: 0;
+  transform: rotateZ(20deg);
+  transition: transform 0.7s var(--ease-out), opacity 0.5s var(--ease-out);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: var(--z, 10);
+}
+.stack-card.revealed {
+  opacity: 1;
+  transform: rotateZ(var(--spin, 0deg));
+}
+.stack-card.revealed:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
 }
 .animate-fade-in-up {
   animation: fade-in-up 0.8s var(--ease-out) both;
@@ -156,8 +179,12 @@ html.lenis body {
   .reveal.revealed,
   .clip-reveal,
   .clip-reveal.clip-revealed,
+  .bar-reveal,
+  .bar-reveal.bar-revealed,
+  .stack-card,
+  .stack-card.revealed,
   .stagger-reveal > *,
-  .stagger-reveal > *.revealed {
+  .stagger-reveal > *:not(.sticky-note).revealed {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;

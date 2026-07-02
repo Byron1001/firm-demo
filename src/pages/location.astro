@@ -8,9 +8,9 @@ import { officesQuery } from '../lib/sanity.queries';
 import { ICONS } from '../icons';
 
 let branchOffices = [
-  { name: 'Kuala Lumpur', address: 'Suite 12-01, Menara HLX<br />Kuala Lumpur, 50050', phone: '+60 3-1234 5678', email: 'kl@doublebraincreative.com', hours: { wk: '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' }, map: 'https://www.google.com/maps/dir/?api=1&destination=Kuala+Lumpur+Malaysia' },
-  { name: 'Penang', address: '25 Beach Street, Suite 8<br />George Town, Penang 10300', phone: '+60 4-123 4567', email: 'penang@doublebraincreative.com', hours: { wk: '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' }, map: 'https://www.google.com/maps/dir/?api=1&destination=George+Town+Penang+Malaysia' },
-  { name: 'Johor Bahru', address: 'Level 15, Menara JLand<br />Johor Bahru, 80000', phone: '+60 7-123 4567', email: 'jb@doublebraincreative.com', hours: { wk: '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' }, map: 'https://www.google.com/maps/dir/?api=1&destination=Johor+Bahru+Malaysia' },
+  { name: 'Kuala Lumpur', address: 'Suite 12-01, Menara HLX<br />Kuala Lumpur, 50050', phone: '+60 3-1234 5678', email: 'kl@doublebraincreative.com', hours: { wk: '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' }, map: 'https://www.google.com/maps/place/Kuala+Lumpur,+Malaysia' },
+  { name: 'Penang', address: '25 Beach Street, Suite 8<br />George Town, Penang 10300', phone: '+60 4-123 4567', email: 'penang@doublebraincreative.com', hours: { wk: '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' }, map: 'https://www.google.com/maps/place/George+Town,+Penang,+Malaysia' },
+  { name: 'Johor Bahru', address: 'Level 15, Menara JLand<br />Johor Bahru, 80000', phone: '+60 7-123 4567', email: 'jb@doublebraincreative.com', hours: { wk: '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' }, map: 'https://www.google.com/maps/place/Johor+Bahru,+Malaysia' },
 ]
 
 try {
@@ -22,7 +22,7 @@ try {
       phone: d.phone || '+60 3-1234 5678',
       email: d.email || 'hello@doublebraincreative.com',
       hours: { wk: d.hours || '8:30 AM – 6:00 PM', sat: '9:00 AM – 1:00 PM', sun: 'Closed' },
-      map: d.mapLink || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.name)}+Malaysia`,
+      map: d.mapLink || `https://www.google.com/maps/place/${encodeURIComponent(d.name)}+Malaysia`,
     }))
   }
 } catch {}
@@ -30,10 +30,10 @@ try {
 
 <Layout>
   <Header client:load />
-  <div class="pt-32 pb-20 bg-white">
+  <div class="pt-32 pb-20 bg-bg-alt">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
       <div class="flex items-center gap-3 mb-4">
-          <span class="w-10 h-px bg-accent" />
+          <span class="w-10 h-px bg-accent bar-reveal" />
           <span class="text-xs font-semibold tracking-[0.15em] uppercase text-accent">Location</span>
         </div>
         <h1 class="font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.15] tracking-[-0.02em] mb-4">Our Offices</h1>
@@ -51,17 +51,17 @@ try {
               </div>
               <p class="text-text-light text-sm mt-2 leading-relaxed" set:html={o.address} />
             </div>
-            <div class="border-t border-gray-200 pt-5">
+            <div class="border-t border-white/10 pt-5">
               <div class="flex items-center gap-2.5 mb-1">
                 <svg class="w-5 h-5 text-accent min-w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
                 <h3 class="font-heading font-bold text-primary">Contact</h3>
               </div>
               <div class="text-sm mt-2 space-y-2">
-                <a href={`tel:${o.phone.replace(/[^+\d]/g, '')}`} class="text-text-light hover:text-accent transition-colors block w-fit">{o.phone}</a>
+                <a href={`tel:${o.phone.replace(/[^+\d]/g, '')}`} class="text-text-light hover:text-[#128C7E] transition-colors block w-fit">{o.phone}</a>
                 <a href={`mailto:${o.email}`} class="text-text-light hover:text-accent transition-colors block w-fit">{o.email}</a>
               </div>
             </div>
-            <div class="border-t border-gray-200 pt-5">
+            <div class="border-t border-white/10 pt-5">
               <div class="flex items-center gap-2.5 mb-1">
                 <svg class="w-5 h-5 text-accent min-w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <h3 class="font-heading font-bold text-primary">Hours</h3>
@@ -72,7 +72,7 @@ try {
                 <div class="flex justify-between"><span>Sunday</span><span class="text-text-light/50">{o.hours.sun}</span></div>
               </div>
             </div>
-            <div class="border-t border-gray-200 pt-5">
+            <div class="border-t border-white/10 pt-5">
               <a href={o.map} target="_blank" rel="noopener" class="flex items-center justify-center gap-2 w-full bg-accent text-primary px-5 py-3 rounded-xl font-semibold text-sm hover:bg-accent-dark active:scale-[0.97] transition-[background-color,transform] hover:-translate-y-0.5">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l7.5-7.5-7.5-7.5" /></svg>
                 Get Directions

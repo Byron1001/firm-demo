@@ -124,7 +124,7 @@ export default function ExpertiseCards({ services }: Props) {
                 </span>
               </a>
             </div>
-            <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[70vh] overflow-hidden rounded-2xl transition-transform duration-700 hover:scale-105 will-change-transform">
+            <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[70vh] overflow-hidden rounded-2xl will-change-transform">
               {s.video ? (
                 <video muted playsInline preload="auto"
                   className="absolute inset-0 w-full h-full object-cover will-change-transform"
@@ -151,7 +151,7 @@ export default function ExpertiseCards({ services }: Props) {
       >
         <div className="max-w-[1440px] mx-auto px-6 lg:px-16 w-full">
           <div className="flex items-center gap-3 mb-4">
-            <span className="w-10 h-px bg-accent" />
+            <span className="w-10 h-px bg-accent bar-reveal" />
             <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent">What We Do</span>
           </div>
           <h2 className="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-primary">

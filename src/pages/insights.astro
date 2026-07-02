@@ -23,11 +23,11 @@ const articles = [
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <section class="py-20 bg-bg-alt">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {articles.map((a) => (
-          <article class="group border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+          <article class="group bg-bg-alt border border-white/10 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
             <div class="p-8 flex flex-col h-full">
               <div class="flex items-center gap-3 text-xs text-text-muted mb-4">
                 <time>{a.date}</time>

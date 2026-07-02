@@ -188,6 +188,47 @@ export function initVideoParallax() {
   update()
 }
 
+export function initStackReveal() {
+  const container = document.querySelector('.stack-spacer')
+  const cards = document.querySelectorAll('.stack-card')
+  if (!container || !cards.length) return
+
+  function update() {
+    const rect = container.getBoundingClientRect()
+    const vh = window.innerHeight
+    const total = rect.height - vh
+    const progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0
+
+    cards.forEach((card, i) => {
+      const threshold = (i + 0.5) / cards.length
+      card.classList.toggle('revealed', progress >= threshold)
+    })
+  }
+
+  update()
+  window.addEventListener('scroll', update, { passive: true })
+}
+
+export function initBarReveal() {
+  const els = document.querySelectorAll('.bar-reveal:not([data-bar-observer])')
+  if (!els.length) return
+
+  els.forEach((el) => el.setAttribute('data-bar-observer', ''))
+
+  function checkVisibility() {
+    const vh = window.innerHeight
+    document.querySelectorAll('.bar-reveal:not(.bar-revealed)').forEach((el) => {
+      const rect = el.getBoundingClientRect()
+      if (rect.top < vh * 0.85 && rect.bottom > 0) {
+        el.classList.add('bar-revealed')
+      }
+    })
+  }
+
+  checkVisibility()
+  window.addEventListener('scroll', checkVisibility, { passive: true })
+}
+
 export function initVideoObserver() {
   const videos = document.querySelectorAll('video[data-observe-video]:not([data-video-observer-init])')
   if (!videos.length) return
@@ -226,8 +267,10 @@ export function initAll() {
   if (prefersReducedMotion()) return
 
   initScrollReveal()
+  initStackReveal()
   initCountUp()
   initClipReveal()
+  initBarReveal()
   initStaggerReveal()
   initMouseParallax()
   initVideoParallax()
