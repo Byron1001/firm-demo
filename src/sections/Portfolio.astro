@@ -3,14 +3,15 @@ import PortfolioCarousel from '../components/PortfolioCarousel'
 import { client } from '../lib/sanity'
 import { galleryClientsQuery } from '../lib/sanity.queries'
 import { urlFor } from '../lib/sanity.image'
+import { asset } from '../lib/assets'
 
 let projects = [
-  { title: 'Petronas Leadership Summit', category: 'Corporate Conference', location: 'Kuala Lumpur', img: '/images/sections/portfolio-03.jpg', slug: 'petronas-leadership-summit' },
-  { title: 'AirAsia Annual Gala', category: 'Gala & Awards', location: 'Kuala Lumpur', img: '/images/sections/portfolio-02.jpg', slug: 'airasia-annual-gala' },
-  { title: 'Grab Brand Launch 2025', category: 'Product Launch', location: 'Selangor', img: '/images/sections/portfolio-05.jpg', slug: 'grab-brand-launch' },
-  { title: 'ShopeeFest Malaysia', category: 'Brand Activation', location: 'Kuala Lumpur', img: '/images/sections/portfolio-04.jpg', slug: 'shopeefest-malaysia' },
-  { title: 'CelcomDigi Conference', category: 'Corporate Event', location: 'Penang', img: '/images/sections/portfolio-06.jpg', slug: 'celcomdigi-conference' },
-  { title: 'Sunway Wedding Fair', category: 'Wedding', location: 'Selangor', img: '/images/sections/portfolio-01.jpg', slug: 'sunway-wedding-fair' },
+  { title: 'Petronas Leadership Summit', category: 'Corporate Conference', location: 'Kuala Lumpur', img: asset('/images/sections/portfolio-03.jpg'), slug: 'petronas-leadership-summit' },
+  { title: 'AirAsia Annual Gala', category: 'Gala & Awards', location: 'Kuala Lumpur', img: asset('/images/sections/portfolio-02.jpg'), slug: 'airasia-annual-gala' },
+  { title: 'Grab Brand Launch 2025', category: 'Product Launch', location: 'Selangor', img: asset('/images/sections/portfolio-05.jpg'), slug: 'grab-brand-launch' },
+  { title: 'ShopeeFest Malaysia', category: 'Brand Activation', location: 'Kuala Lumpur', img: asset('/images/sections/portfolio-04.jpg'), slug: 'shopeefest-malaysia' },
+  { title: 'CelcomDigi Conference', category: 'Corporate Event', location: 'Penang', img: asset('/images/sections/portfolio-06.jpg'), slug: 'celcomdigi-conference' },
+  { title: 'Sunway Wedding Fair', category: 'Wedding', location: 'Selangor', img: asset('/images/sections/portfolio-01.jpg'), slug: 'sunway-wedding-fair' },
 ]
 
 try {

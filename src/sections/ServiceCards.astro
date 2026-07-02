@@ -2,13 +2,14 @@
 import { client } from '../lib/sanity'
 import { practiceAreasQuery } from '../lib/sanity.queries'
 import ExpertiseCards from '../components/ExpertiseCards'
+import { asset } from '../lib/assets'
 
 let services = [
-  { num: '01', title: 'Corporate Events', desc: 'From corporate summits to annual dinners, we create experiences that fuel alignment and connection between audiences and business goals.', img: '/images/sections/pexels-corporate-2k.jpg', video: '', slug: 'corporate-events' },
-  { num: '02', title: 'Exhibitions', desc: 'Presence isn\'t enough. We design modular brand spaces that speak, perform and stick, with strategy and flair built into every wall.', img: '/images/sections/pexels-exhibition-2k.jpg', video: '', slug: 'exhibitions' },
-  { num: '03', title: 'Wedding Planning', desc: 'We turn once-in-a-lifetime moments into unforgettable memories. Designed to reflect your story, executed with meticulous care.', img: '/images/sections/pexels-wedding-2k.jpg', video: '', slug: 'wedding-planning' },
-  { num: '04', title: 'Branding & Design', desc: 'We build emotional power into every brand touchpoint. From visual identity to immersive brand spaces that leave a lasting mark.', img: '/images/sections/pexels-branding-2k.jpg', video: '', slug: 'branding-design' },
-  { num: '05', title: 'Sports', desc: 'From VIP lounges to brand arenas, we build emotional power into every play and help you win over fans.', img: '/images/sections/pexels-sports-2k.jpg', video: '', slug: 'sports' },
+  { num: '01', title: 'Corporate Events', desc: 'From corporate summits to annual dinners, we create experiences that fuel alignment and connection between audiences and business goals.', img: asset('/images/sections/pexels-corporate-2k.jpg'), video: '', slug: 'corporate-events' },
+  { num: '02', title: 'Exhibitions', desc: 'Presence isn\'t enough. We design modular brand spaces that speak, perform and stick, with strategy and flair built into every wall.', img: asset('/images/sections/pexels-exhibition-2k.jpg'), video: '', slug: 'exhibitions' },
+  { num: '03', title: 'Wedding Planning', desc: 'We turn once-in-a-lifetime moments into unforgettable memories. Designed to reflect your story, executed with meticulous care.', img: asset('/images/sections/pexels-wedding-2k.jpg'), video: '', slug: 'wedding-planning' },
+  { num: '04', title: 'Branding & Design', desc: 'We build emotional power into every brand touchpoint. From visual identity to immersive brand spaces that leave a lasting mark.', img: asset('/images/sections/pexels-branding-2k.jpg'), video: '', slug: 'branding-design' },
+  { num: '05', title: 'Sports', desc: 'From VIP lounges to brand arenas, we build emotional power into every play and help you win over fans.', img: asset('/images/sections/pexels-sports-2k.jpg'), video: '', slug: 'sports' },
 ]
 
 try {

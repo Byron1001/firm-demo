@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { asset } from '../lib/assets';
 
 interface Props {
   title?: string;
@@ -15,17 +16,17 @@ const { title = 'Double Brain Creative & Event — Premier Event Management', de
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/sections/og-image.jpg" />
+    <meta property="og:image" content={asset('/images/sections/og-image.jpg')} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/images/sections/og-image.jpg" />
+    <meta name="twitter:image" content={asset('/images/sections/og-image.jpg')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />

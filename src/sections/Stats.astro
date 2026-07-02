@@ -1,9 +1,11 @@
 ---
+import { asset } from '../lib/assets'
+
 let stats = [
-  { val: 270, suffix: '+', label: 'Projects Delivered', desc: 'Big stages, small details. Each one designed to leave a mark.', img: '/images/sections/stats-01.jpg' },
-  { val: 90, suffix: '%', label: 'Loyal Clients', desc: 'Our clients love to come back, proof that true partnership lasts.', img: '/images/sections/stats-02.jpg' },
-  { val: 12, suffix: '+', label: 'Years Experience', desc: 'One team. Twelve years of craft. Countless stories told.', img: '/images/sections/stats-04.jpg' },
-  { val: 0, suffix: '', label: 'Creative Ideas', desc: 'That\u2019s ideas, not coffee. Brilliant ones, brewed daily.', img: '/images/sections/stats-03.jpg', infinite: true },
+  { val: 270, suffix: '+', label: 'Projects Delivered', desc: 'Big stages, small details. Each one designed to leave a mark.', img: asset('/images/sections/stats-01.jpg') },
+  { val: 90, suffix: '%', label: 'Loyal Clients', desc: 'Our clients love to come back, proof that true partnership lasts.', img: asset('/images/sections/stats-02.jpg') },
+  { val: 12, suffix: '+', label: 'Years Experience', desc: 'One team. Twelve years of craft. Countless stories told.', img: asset('/images/sections/stats-04.jpg') },
+  { val: 0, suffix: '', label: 'Creative Ideas', desc: 'That\u2019s ideas, not coffee. Brilliant ones, brewed daily.', img: asset('/images/sections/stats-03.jpg'), infinite: true },
 ]
 ---
 

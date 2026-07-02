@@ -3,16 +3,17 @@ import { client } from '../lib/sanity'
 import { teamMembersQuery } from '../lib/sanity.queries'
 import { urlFor } from '../lib/sanity.image'
 import { ICONS } from '../icons'
+import { asset } from '../lib/assets'
 
 let team = [
-  { name: 'Amira Yusof', role: 'Creative Director', spec: 'Vision & Concept Development', photo: '/images/sections/team-amira.jpg' },
-  { name: 'Brandon Koh', role: 'Event Director', spec: 'Corporate Events & Conferences', photo: '/images/sections/team-brandon.jpg' },
-  { name: 'Catherine Lim', role: 'Head of Weddings', spec: 'Wedding Planning & Coordination', photo: '/images/sections/team-catherine.jpg' },
-  { name: 'Daniel Raj', role: 'Creative Lead', spec: 'Branding & Creative Design', photo: '/images/sections/team-daniel.jpg' },
-  { name: 'Emily Chen', role: 'Senior Event Coordinator', spec: 'Exhibitions & Trade Shows', photo: '/images/sections/team-emily.jpg' },
-  { name: 'Farid Ismail', role: 'Production Manager', spec: 'Technical Production & Logistics', photo: '/images/sections/team-farid.jpg' },
-  { name: 'Grace Wong', role: 'Client Relations Director', spec: 'Client Experience & Partnerships', photo: '/images/sections/team-grace.jpg' },
-  { name: 'Hannah Tan', role: 'Senior Designer', spec: 'Visual Design & Styling', photo: '/images/sections/team-hannah.jpg' },
+  { name: 'Amira Yusof', role: 'Creative Director', spec: 'Vision & Concept Development', photo: asset('/images/sections/team-amira.jpg') },
+  { name: 'Brandon Koh', role: 'Event Director', spec: 'Corporate Events & Conferences', photo: asset('/images/sections/team-brandon.jpg') },
+  { name: 'Catherine Lim', role: 'Head of Weddings', spec: 'Wedding Planning & Coordination', photo: asset('/images/sections/team-catherine.jpg') },
+  { name: 'Daniel Raj', role: 'Creative Lead', spec: 'Branding & Creative Design', photo: asset('/images/sections/team-daniel.jpg') },
+  { name: 'Emily Chen', role: 'Senior Event Coordinator', spec: 'Exhibitions & Trade Shows', photo: asset('/images/sections/team-emily.jpg') },
+  { name: 'Farid Ismail', role: 'Production Manager', spec: 'Technical Production & Logistics', photo: asset('/images/sections/team-farid.jpg') },
+  { name: 'Grace Wong', role: 'Client Relations Director', spec: 'Client Experience & Partnerships', photo: asset('/images/sections/team-grace.jpg') },
+  { name: 'Hannah Tan', role: 'Senior Designer', spec: 'Visual Design & Styling', photo: asset('/images/sections/team-hannah.jpg') },
 ]
 
 try {

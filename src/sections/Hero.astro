@@ -1,6 +1,7 @@
 ---
 import { client } from '../lib/sanity'
 import { siteSettingsQuery } from '../lib/sanity.queries'
+import { asset } from '../lib/assets'
 
 let heroTitle = 'Step into\nthe Spotlight'
 let heroDesc = 'We craft world-class spaces & events that create memories, initiate conversations and elevate ambitions.'
@@ -16,14 +17,14 @@ try {
   <div class="absolute inset-0 overflow-hidden">
     <video
       autoplay muted playsinline preload="metadata"
-      poster="/images/sections/hero-bg.jpg"
+      poster={asset('/images/sections/hero-bg.jpg')}
       class="w-full h-full object-cover will-change-transform"
       id="hero-video"
       data-observe-video
     >
-      <source src="/videos/showreel.mp4" type="video/mp4" />
-      <source src="/videos/pexels/pexels-hero-conference-walk.mp4" type="video/mp4" />
-      <source src="/videos/pexels/pexels-hero-diverse-group.mp4" type="video/mp4" />
+      <source src={asset('/videos/showreel.mp4')} type="video/mp4" />
+      <source src={asset('/videos/pexels/pexels-hero-conference-walk.mp4')} type="video/mp4" />
+      <source src={asset('/videos/pexels/pexels-hero-diverse-group.mp4')} type="video/mp4" />
     </video>
     <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a] via-[#0f0f1a]/50 to-[#0f0f1a]/20" id="hero-overlay" />
 
