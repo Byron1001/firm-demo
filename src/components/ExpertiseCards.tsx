@@ -146,10 +146,12 @@ export default function ExpertiseCards({ services }: Props) {
       ))}
 
       <div id="expertise-heading"
-        className="fixed inset-0 z-[200] bg-surface flex items-center pointer-events-none"
+        className="fixed inset-0 z-[200] flex items-center pointer-events-none overflow-hidden"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-16 w-full">
+        <img src={services[0].img} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="eager" />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface/60 via-surface/20 to-surface/60 pointer-events-none" />
+        <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-16 w-full">
           <div className="flex items-center gap-3 mb-4">
             <span className="w-10 h-px bg-accent bar-reveal" />
             <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent">What We Do</span>

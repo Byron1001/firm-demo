@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { asset } from '../lib/assets';
+import NotificationToast from '../components/NotificationToast';
 
 interface Props {
   title?: string;
@@ -35,6 +36,7 @@ const { title = 'Double Brain Creative & Event SDN BHD — Premier Event Managem
     <div class="overflow-x-hidden">
       <slot />
     </div>
+    <NotificationToast client:load />
   </body>
 </html>
 

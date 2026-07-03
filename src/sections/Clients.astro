@@ -30,10 +30,10 @@ const logos = [
   </div>
 
   <div class="overflow-hidden reveal mb-12">
-    <div class="flex gap-10 animate-marquee w-max items-center">
+    <div class="flex gap-20 animate-marquee w-max items-center px-8">
       {[...logos, ...logos].map((l, i) => (
-        <div key={i} class="flex items-center gap-3 whitespace-nowrap">
-          <img src={l.img} alt={l.name} class="h-6 w-auto object-contain" loading="lazy" />
+        <div key={i} class="flex items-center flex-shrink-0">
+          <img src={l.img} alt={l.name} class="h-10 w-auto object-contain max-w-[160px]" loading="lazy" />
         </div>
       ))}
     </div>
