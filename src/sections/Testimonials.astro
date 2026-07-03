@@ -3,14 +3,14 @@ import { client } from '../lib/sanity'
 import { testimonialsQuery } from '../lib/sanity.queries'
 
 let testimonials = [
-  { text: 'Double Brain Creative transformed our annual gala into an unforgettable experience. Every detail was flawless.', name: 'Sarah Lim', role: 'CEO', company: 'Lim Corporation', ccolor: '#1a3a5c', caseSlug: 'petronas-leadership-summit' },
-  { text: 'They planned our wedding and exceeded every expectation. The team listened to our vision and brought it to life beautifully.', name: 'Aisha & Ravi', role: 'Happy Couple', company: '', ccolor: '#d4a574', caseSlug: 'sunway-wedding-fair' },
-  { text: 'Our product launch was a massive success thanks to Double Brain. The creative direction and guest experience were world-class.', name: 'Kevin Tan', role: 'Marketing Director', company: 'TechGlobal', ccolor: '#00509d', caseSlug: 'grab-brand-launch' },
-  { text: 'We have partnered with Double Brain on multiple corporate events. Their professionalism and attention to detail are unmatched.', name: 'Diana Ong', role: 'CFO', company: 'Ong Holdings', ccolor: '#8b1a1a', caseSlug: 'celcomdigi-conference' },
-  { text: 'From concept to execution, Double Brain delivered a seamless experience. Our stakeholders were thoroughly impressed.', name: 'Michael Leong', role: 'VP Operations', company: 'Pioneer Group', ccolor: '#2e7d32', caseSlug: 'airasia-annual-gala' },
-  { text: 'The exhibition booth they designed for us at the trade show was the talk of the event. Traffic and leads exceeded all targets.', name: 'Priya Nair', role: 'Brand Manager', company: 'EvoTech', ccolor: '#6b21a8', caseSlug: 'shopeefest-malaysia' },
-  { text: 'Double Brain\'s creative team brought our brand identity to life in ways we never imagined. Our stakeholders were blown away.', name: 'James Wong', role: 'Creative Director', company: 'Maven Studio', ccolor: '#b91c1c', caseSlug: 'grab-brand-launch' },
-  { text: 'The corporate conference they handled for our leadership team was flawless. Every detail, from AV to catering, was perfect.', name: 'Lisa Chan', role: 'HR Director', company: 'Horizon Group', ccolor: '#0369a1', caseSlug: 'petronas-leadership-summit' },
+  { text: 'Double Brain Creative transformed our annual gala into an unforgettable experience. Every detail was flawless.', name: 'Sarah Lim', role: 'CEO', company: 'Lim Corporation', ccolor: '#F38A14', caseSlug: 'petronas-leadership-summit' },
+  { text: 'They planned our wedding and exceeded every expectation. The team listened to our vision and brought it to life beautifully.', name: 'Aisha & Ravi', role: 'Happy Couple', company: '', ccolor: '#95E06C', caseSlug: 'sunway-wedding-fair' },
+  { text: 'Our product launch was a massive success thanks to Double Brain. The creative direction and guest experience were world-class.', name: 'Kevin Tan', role: 'Marketing Director', company: 'TechGlobal', ccolor: '#C3F73A', caseSlug: 'grab-brand-launch' },
+  { text: 'We have partnered with Double Brain on multiple corporate events. Their professionalism and attention to detail are unmatched.', name: 'Diana Ong', role: 'CFO', company: 'Ong Holdings', ccolor: '#68B684', caseSlug: 'celcomdigi-conference' },
+  { text: 'From concept to execution, Double Brain delivered a seamless experience. Our stakeholders were thoroughly impressed.', name: 'Michael Leong', role: 'VP Operations', company: 'Pioneer Group', ccolor: '#F38A14', caseSlug: 'airasia-annual-gala' },
+  { text: 'The exhibition booth they designed for us at the trade show was the talk of the event. Traffic and leads exceeded all targets.', name: 'Priya Nair', role: 'Brand Manager', company: 'EvoTech', ccolor: '#95E06C', caseSlug: 'shopeefest-malaysia' },
+  { text: 'Double Brain\'s creative team brought our brand identity to life in ways we never imagined. Our stakeholders were blown away.', name: 'James Wong', role: 'Creative Director', company: 'Maven Studio', ccolor: '#C3F73A', caseSlug: 'grab-brand-launch' },
+  { text: 'The corporate conference they handled for our leadership team was flawless. Every detail, from AV to catering, was perfect.', name: 'Lisa Chan', role: 'HR Director', company: 'Horizon Group', ccolor: '#68B684', caseSlug: 'petronas-leadership-summit' },
 ]
 
 try {
@@ -21,7 +21,7 @@ try {
       company: '', ccolor: '#6b7280', caseSlug: 'petronas-leadership-summit'
     }))
   }
-} catch {}
+  } catch (e) { console.error('Sanity fetch failed (testimonials):', e) }
 ---
 
 <section id="testimonials" class="py-[120px] max-sm:py-20 bg-bg-dark text-white overflow-hidden">

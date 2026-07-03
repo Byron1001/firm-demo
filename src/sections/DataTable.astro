@@ -1,5 +1,7 @@
 ---
-const projects = [
+import { client } from '../lib/sanity'
+
+let projects = [
   { participants: '2,000', industry: 'Sports', type: 'Live Event', location: 'Kuala Lumpur' },
   { participants: '5,000', industry: 'Pharmaceutical', type: 'Exhibition', location: 'Penang' },
   { participants: '1,200', industry: 'Tech', type: 'Corporate Summit', location: 'Kuala Lumpur' },
@@ -9,6 +11,18 @@ const projects = [
   { participants: '450', industry: 'Education', type: 'Conference', location: 'Penang' },
   { participants: '6,000', industry: 'Aviation', type: 'Live Event', location: 'Kuala Lumpur' },
 ]
+
+try {
+  const docs = await client.fetch(`*[_type == "project"] | order(order asc)`)
+  if (docs?.length > 0) {
+    projects = docs.map((d: any) => ({
+      participants: d.participants || '—',
+      industry: d.industry || '—',
+      type: d.eventType || '—',
+      location: d.location || '—',
+    }))
+  }
+} catch (e) { console.error('Sanity fetch failed (projects):', e) }
 ---
 
 <section class="py-[120px] max-sm:py-20 bg-surface border-b border-white/5 overflow-hidden">

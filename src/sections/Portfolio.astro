@@ -18,12 +18,12 @@ try {
   const docs = await client.fetch(galleryClientsQuery)
   if (docs?.length > 0) {
     projects = docs.map((d: any) => ({
-      title: d.name, category: d.industry || 'Event', location: '',
+      title: d.name, category: d.industry || 'Event', location: d.location || 'Kuala Lumpur',
       img: d.logo ? urlFor(d.logo).width(1000).height(667).url() : projects[0].img,
       slug: (d.name || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'project',
     }))
   }
-} catch {}
+  } catch (e) { console.error('Sanity fetch failed (portfolio):', e) }
 ---
 
 <section id="portfolio" class="py-[120px] max-sm:py-20 overflow-hidden bg-surface">

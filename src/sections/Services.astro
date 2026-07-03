@@ -24,7 +24,7 @@ try {
       slug: (d.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || services[i]?.slug || '',
     }))
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (services):', e) }
 ---
 
 <section id="services" class="py-[120px] max-sm:py-20 bg-bg-alt">

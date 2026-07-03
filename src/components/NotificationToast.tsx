@@ -36,32 +36,32 @@ export default function NotificationToast() {
   return (
     <>
       <div
-        class={`fixed bottom-24 sm:bottom-28 right-4 sm:right-6 z-50 max-w-[360px] w-[calc(100%-2rem)] sm:w-auto bg-surface border border-white/10 rounded-2xl shadow-2xl shadow-black/40 transition-all duration-500 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 pointer-events-none'}`}
+        className={`fixed bottom-24 sm:bottom-28 right-4 sm:right-6 z-50 max-w-[360px] w-[calc(100%-2rem)] sm:w-auto bg-surface border border-white/10 rounded-2xl shadow-2xl shadow-black/40 transition-all duration-500 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 pointer-events-none'}`}
       >
         <button
           onClick={handleClose}
-          class="absolute top-3 right-3 w-6 h-6 flex items-center justify-center text-white/30 hover:text-white/70 transition-colors cursor-pointer border-none bg-transparent"
+          className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center text-white/30 hover:text-white/70 transition-colors cursor-pointer border-none bg-transparent"
           aria-label="Close notification"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <div class="p-5 pr-8">
-          <div class="text-2xl mb-2">{msg.emoji}</div>
-          <h4 class="font-heading text-sm font-bold text-primary mb-1">{msg.title}</h4>
-          <p class="text-xs text-text-light/70 leading-relaxed">{msg.text}</p>
-          <div class="flex items-center gap-2 mt-4">
+        <div className="p-5 pr-8">
+           <div className="text-2xl mb-2">{msg.emoji}</div>
+           <h4 className="font-heading text-sm font-bold text-primary mb-1">{msg.title}</h4>
+           <p className="text-xs text-text-light/70 leading-relaxed">{msg.text}</p>
+           <div className="flex items-center gap-2 mt-4">
             <button
               onClick={handleAction}
-              class="text-xs font-semibold bg-[#25D366] text-white px-4 py-2 rounded-full hover:brightness-110 transition-all cursor-pointer border-none"
+               className="text-xs font-semibold bg-[#25D366] text-white px-4 py-2 rounded-full hover:brightness-110 transition-all cursor-pointer border-none"
             >
               Chat on WhatsApp
             </button>
             <button
               onClick={handleClose}
-              class="text-xs text-white/40 hover:text-white/70 transition-colors cursor-pointer bg-transparent border-none"
+               className="text-xs text-white/40 hover:text-white/70 transition-colors cursor-pointer bg-transparent border-none"
             >
               Later
             </button>

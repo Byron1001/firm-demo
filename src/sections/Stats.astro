@@ -31,7 +31,7 @@ let stats = [
               {s.infinite ? (
                 <span class="text-accent">&#x221e;</span>
               ) : (
-                <><span class="stat-number" data-target={s.val}>0</span><span class="text-white">{s.suffix}</span></>
+                <span class="count-up text-white" data-target={s.val} data-suffix={s.suffix}>0{s.suffix}</span>
               )}
             </div>
             <p class="font-heading text-sm font-semibold text-accent tracking-[0.1em] uppercase mb-2">{s.label}</p>
@@ -43,33 +43,4 @@ let stats = [
   </div>
 </section>
 
-<script>
-  function initScrubbedStats() {
-    const track = document.getElementById('stats-track') as HTMLElement;
-    const counters = document.querySelectorAll<HTMLElement>('.stat-number');
-    if (!track || !counters.length) return;
 
-    // state = f(scrollPosition): vertical page scroll through this section
-    const section = track.closest('section')!;
-
-    function update() {
-      const rect = section.getBoundingClientRect();
-      const viewH = window.innerHeight;
-      const sectionH = rect.height;
-      const progress = sectionH > viewH
-        ? Math.max(0, Math.min(1, -rect.top / (sectionH - viewH)))
-        : 0;
-
-      counters.forEach(el => {
-        const target = parseInt(el.dataset.target || '0', 10);
-        el.textContent = Math.round(progress * target).toString();
-      });
-    }
-
-    window.addEventListener('scroll', update, { passive: true });
-
-    update();
-  }
-
-  document.addEventListener('DOMContentLoaded', initScrubbedStats);
-</script>

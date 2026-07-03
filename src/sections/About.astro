@@ -15,7 +15,7 @@ try {
     if (blocks.length > 1 && blocks[1].children?.[0]?.text) aboutP1 = blocks[1].children[0].text
     if (blocks.length > 2 && blocks[2].children?.[0]?.text) aboutP2 = blocks[2].children[0].text
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (about):', e) }
 ---
 
 <section id="about" class="py-[120px] max-sm:py-20 bg-surface">

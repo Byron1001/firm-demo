@@ -25,7 +25,7 @@ try {
       map: d.mapLink || `https://www.google.com/maps/place/${encodeURIComponent(d.name)}+Malaysia`,
     }))
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (location offices):', e) }
 ---
 
 <Layout>

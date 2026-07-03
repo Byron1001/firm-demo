@@ -24,7 +24,7 @@ try {
       slug: (d.title || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || services[i]?.slug || '',
     }))
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (serviceCards):', e) }
 ---
 
 <section id="services" class="bg-surface">

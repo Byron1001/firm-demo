@@ -14,7 +14,7 @@ try {
   if (docs?.length > 0) {
     faqs = docs.map((d: any) => ({ question: d.question, answer: d.answer }))
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (faq):', e) }
 ---
 
 <section class="py-[120px] max-sm:py-20 bg-surface" id="faq">

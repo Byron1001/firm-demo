@@ -14,7 +14,7 @@ try {
   if (docs?.length > 0) {
     offices = docs.map((d: any) => ({ name: d.name, address: d.address?.replace(/\n/g, '<br />') }))
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (coverage):', e) }
 ---
 
 <section class="py-[120px] max-sm:py-20 bg-bg-dark text-white overflow-hidden">

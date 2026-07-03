@@ -10,7 +10,7 @@ try {
   const settings = await client.fetch(siteSettingsQuery)
   if (settings?.heroTitle) heroTitle = settings.heroTitle
   if (settings?.heroDescription) heroDesc = settings.heroDescription
-} catch {}
+  } catch (e) { console.error('Sanity fetch failed (hero):', e) }
 ---
 
 <section id="home" class="relative h-[100dvh] min-h-[700px] flex items-center overflow-hidden bg-bg-dark">
@@ -26,7 +26,7 @@ try {
       <source src={asset('/videos/pexels/pexels-hero-conference-walk.mp4')} type="video/mp4" />
       <source src={asset('/videos/pexels/pexels-hero-diverse-group.mp4')} type="video/mp4" />
     </video>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f1a] via-[#0f0f1a]/50 to-[#0f0f1a]/20" id="hero-overlay" />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/50 to-bg-dark/20" id="hero-overlay" />
 
     <button
       id="hero-mute-toggle"

@@ -16,7 +16,7 @@ try {
   if (docs?.length > 0) {
     offices = docs.map((d: any) => ({ name: d.name, addr: d.address?.replace(/\n/g, ', ') || 'Main Office' }))
   }
-} catch {}
+} catch (e) { console.error('Sanity fetch failed (offices):', e) }
 ---
 
 <section id="contact" class="py-[120px] max-sm:py-20 bg-bg-alt">
@@ -70,7 +70,7 @@ try {
       </div>
 
       <div class="reveal reveal-delay-1">
-        <form action="https://formspree.io/f/{import.meta.env.FORMSPREE_FORM_ID || 'YOUR_FORM_ID'}" method="POST" class="bg-surface p-8 rounded-2xl border border-white/10">
+        <form action={`https://formspree.io/f/${import.meta.env.FORMSPREE_FORM_ID || 'YOUR_FORM_ID'}`} method="POST" class="bg-surface p-8 rounded-2xl border border-white/10">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label for="name" class="text-sm font-semibold text-primary block mb-1.5">Full Name</label>
