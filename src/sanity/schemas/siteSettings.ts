@@ -9,7 +9,7 @@ export default defineType({
       name: 'firmName',
       title: 'Company Name',
       type: 'string',
-      initialValue: 'Double Brain Creative & Event SDN BHD (202301030587(1524510-W))',
+      initialValue: 'Double Brain Creative & Event SDN BHD',
     }),
     defineField({
       name: 'tagline',

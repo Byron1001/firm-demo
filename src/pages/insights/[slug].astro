@@ -75,7 +75,7 @@ const a = Astro.props
         </div>
       ))}
       <div class="pt-8 border-t border-white/10">
-        <a href="/insights" class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:gap-3 transition-all">
+        <a href={`${import.meta.env.BASE_URL}insights`} class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:gap-3 transition-all">
           &larr; Back to insights
         </a>
       </div>

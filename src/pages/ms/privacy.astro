@@ -1,0 +1,34 @@
+---
+import { useTranslations } from '../../i18n';
+const t = useTranslations('ms');
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header';
+import Footer from '../../sections/Footer.astro';
+import FloatingButtons from '../../sections/FloatingButtons.astro';
+---
+
+<Layout title={t.privacy.title} locale="ms">
+  <Header client:load locale="ms" />
+  <div class="pt-32 pb-20 bg-bg-alt">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-10 h-px bg-accent bar-reveal" />
+        <span class="text-xs font-semibold tracking-[0.15em] uppercase text-accent">{t.privacy.breadcrumb}</span>
+      </div>
+      <h1 class="font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.15] tracking-[-0.02em] mb-8">{t.privacy.heading}</h1>
+
+      <div class="prose prose-gray max-w-none text-text-light leading-relaxed space-y-6">
+        <p class="text-primary font-semibold">{t.privacy.lastUpdated}</p>
+
+        {t.privacy.sections.map((s) => (
+          <>
+            <h2 class="font-heading text-xl font-bold text-primary mt-10 mb-3">{s.heading}</h2>
+            <p>{s.body}</p>
+          </>
+        ))}
+      </div>
+    </div>
+  </div>
+  <Footer locale="ms" />
+  <FloatingButtons locale="ms" />
+</Layout>

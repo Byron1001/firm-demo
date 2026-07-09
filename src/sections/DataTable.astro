@@ -1,16 +1,18 @@
 ---
 import { client } from '../lib/sanity'
+import { useTranslations } from '../i18n'
 
-let projects = [
-  { participants: '2,000', industry: 'Sports', type: 'Live Event', location: 'Kuala Lumpur' },
-  { participants: '5,000', industry: 'Pharmaceutical', type: 'Exhibition', location: 'Penang' },
-  { participants: '1,200', industry: 'Tech', type: 'Corporate Summit', location: 'Kuala Lumpur' },
-  { participants: '3,500', industry: 'Automotive', type: 'Product Launch', location: 'Selangor' },
-  { participants: '850', industry: 'Finance', type: 'Gala Dinner', location: 'Kuala Lumpur' },
-  { participants: '12,000', industry: 'Retail', type: 'Brand Activation', location: 'Johor Bahru' },
-  { participants: '450', industry: 'Education', type: 'Conference', location: 'Penang' },
-  { participants: '6,000', industry: 'Aviation', type: 'Live Event', location: 'Kuala Lumpur' },
-]
+export interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+const t = useTranslations(locale)
+
+const rawRows = t.dataTable.rows as string[][]
+let projects = rawRows.map((r: string[]) => ({
+  participants: r[0],
+  industry: r[1],
+  type: r[2],
+  location: r[3],
+}))
 
 try {
   const docs = await client.fetch(`*[_type == "project"] | order(order asc)`)
@@ -27,21 +29,17 @@ try {
 
 <section class="py-[120px] max-sm:py-20 bg-surface border-b border-white/5 overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12">
-    <div class="flex items-center gap-3 mb-4 reveal">
-      <span class="w-10 h-px bg-accent bar-reveal" />
-      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">By the Numbers</span>
-    </div>
-    <p class="text-text-light text-sm max-w-[400px] reveal reveal-delay-1">From intimate gatherings to large-scale productions — a snapshot of the events we've delivered.</p>
+    <p class="text-text-light text-sm max-w-[400px] reveal">{t.dataTable.description}</p>
   </div>
 
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 overflow-x-auto scrollbar-hide reveal">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 overflow-x-auto scrollbar-hide reveal reveal-delay-1">
     <table class="w-full text-left text-sm border-collapse min-w-[600px]">
       <thead>
         <tr class="border-b border-white/10">
-          <th class="pb-3 pr-6 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">Participants</th>
-          <th class="pb-3 pr-6 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">Industry</th>
-          <th class="pb-3 pr-6 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">Event Type</th>
-          <th class="pb-3 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">Location</th>
+          <th class="pb-3 pr-6 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">{t.dataTable.columns.participants}</th>
+          <th class="pb-3 pr-6 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">{t.dataTable.columns.industry}</th>
+          <th class="pb-3 pr-6 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">{t.dataTable.columns.eventType}</th>
+          <th class="pb-3 font-heading text-xs font-semibold tracking-[0.1em] uppercase text-text-muted">{t.dataTable.columns.location}</th>
         </tr>
       </thead>
       <tbody>

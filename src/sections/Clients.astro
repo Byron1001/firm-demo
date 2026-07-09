@@ -1,5 +1,10 @@
 ---
 import { asset } from '../lib/assets'
+import { useTranslations } from '../i18n'
+
+export interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+const t = useTranslations(locale)
 
 const logos = [
   { name: 'Petronas', img: asset('/images/clients/petronas.svg') },
@@ -19,13 +24,8 @@ const logos = [
 
 <section class="py-[120px] max-sm:py-20 bg-bg-alt overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12 reveal">
-    <div class="flex items-center gap-3 mb-4 justify-center">
-      <span class="w-10 h-px bg-accent bar-reveal" />
-      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Trusted By</span>
-      <span class="w-10 h-px bg-accent bar-reveal" />
-    </div>
     <p class="text-center text-text-light/60 text-sm max-w-[400px] mx-auto">
-      We are proud to have worked with
+      {t.clients.heading}
     </p>
   </div>
 

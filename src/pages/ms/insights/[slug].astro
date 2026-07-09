@@ -1,0 +1,64 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import Header from '../../../components/Header'
+import Cta from '../../../sections/Cta.astro'
+import Contact from '../../../sections/Contact.astro'
+import Footer from '../../../sections/Footer.astro'
+import FloatingButtons from '../../../sections/FloatingButtons.astro'
+import { useTranslations } from '../../../i18n'
+
+const t = useTranslations('ms')
+
+const slugMap: Record<string, string> = {
+  'choosing-event-venue-guide': 'choosing-right-event-venue',
+  '2026-event-trends-immersive-tech': '2026-event-trends',
+}
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'choosing-event-venue-guide' } },
+    { params: { slug: '2026-event-trends-immersive-tech' } },
+    { params: { slug: 'three-city-launch-72-hours' } },
+  ]
+}
+
+const slug = Astro.params.slug!
+const key = slugMap[slug] || slug
+const a = t.insights.slug[key]
+---
+
+<Layout title={`${a.title} — Double Brain Creative & Event SDN BHD`} locale="ms">
+  <Header client:load locale="ms" />
+
+  <section class="pt-32 pb-16 bg-bg-dark text-white">
+    <div class="max-w-[800px] mx-auto px-6 lg:px-16">
+      <div class="flex items-center gap-3 text-xs text-white/40 mb-6">
+        <time>{a.date}</time>
+        <span class="w-px h-3 bg-white/20" />
+        <span class="text-accent font-medium">{a.category}</span>
+      </div>
+      <h1 class="font-heading text-[clamp(2rem,4vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em] mb-6">{a.title}</h1>
+    </div>
+  </section>
+
+  <article class="py-16 bg-bg-alt">
+    <div class="max-w-[800px] mx-auto px-6 lg:px-16">
+      {a.content.map((section) => (
+        <div class="mb-12">
+          <h2 class="font-heading text-xl font-bold text-primary mb-4">{section.heading}</h2>
+          <p class="text-text-light leading-relaxed text-[1.05rem]">{section.body}</p>
+        </div>
+      ))}
+      <div class="pt-8 border-t border-white/10">
+        <a href={`${import.meta.env.BASE_URL}ms/insights`} class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:gap-3 transition-all">
+          {t.insights.backLink}
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <Cta locale="ms" />
+  <Contact locale="ms" />
+  <Footer locale="ms" />
+  <FloatingButtons />
+</Layout>

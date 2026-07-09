@@ -1,0 +1,72 @@
+---
+import { asset } from '../lib/assets'
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header'
+import WorkGallery from '../components/WorkGallery'
+import Footer from '../sections/Footer.astro'
+import FloatingButtons from '../sections/FloatingButtons.astro'
+
+const projects = [
+  {
+    title: 'Petronas Leadership Summit', category: 'Corporate Conference', location: 'Kuala Lumpur',
+    img: asset('/images/sections/portfolio-03.jpg'), slug: 'petronas-leadership-summit',
+    overview: 'A flagship leadership summit bringing together 500+ executives for strategic dialogue and vision-setting. We transformed the Grand Ballroom into an immersive environment designed for connection, inspiration, and forward-thinking conversations.',
+    stats: { participants: '500+', duration: '3 Days', speakers: '20+' },
+  },
+  {
+    title: 'AirAsia Annual Gala', category: 'Gala & Awards', location: 'Kuala Lumpur',
+    img: asset('/images/sections/portfolio-02.jpg'), slug: 'airasia-annual-gala',
+    overview: 'An unforgettable evening celebrating a decade of innovation in aviation and hospitality. The gala featured a red carpet arrival, multi-course fine dining, live performances, and an awards ceremony recognizing excellence across the organization.',
+    stats: { participants: '800+', duration: '1 Night', awards: '12' },
+  },
+  {
+    title: 'Grab Brand Launch 2025', category: 'Product Launch', location: 'Selangor',
+    img: asset('/images/sections/portfolio-05.jpg'), slug: 'grab-brand-launch',
+    overview: 'A high-energy product launch with immersive brand experiences and live entertainment. The event unveiled Grab\'s latest platform innovations to media, partners, and key stakeholders.',
+    stats: { participants: '300+', duration: '1 Day', demos: '6' },
+  },
+  {
+    title: 'ShopeeFest Malaysia', category: 'Brand Activation', location: 'Kuala Lumpur',
+    img: asset('/images/sections/portfolio-04.jpg'), slug: 'shopeefest-malaysia',
+    overview: 'Malaysia\'s biggest shopping festival brought to life with interactive zones and stage performances. A massive public-facing activation that drove brand engagement and sales.',
+    stats: { participants: '12,000+', duration: '3 Days', brands: '50+' },
+  },
+  {
+    title: 'CelcomDigi Conference', category: 'Corporate Event', location: 'Penang',
+    img: asset('/images/sections/portfolio-06.jpg'), slug: 'celcomdigi-conference',
+    overview: 'A milestone corporate conference uniting teams across Malaysia for strategic alignment, team building, and forward planning following the Celcom-Digi merger.',
+    stats: { participants: '600+', duration: '2 Days', workshops: '8' },
+  },
+  {
+    title: 'Sunway Wedding Fair', category: 'Wedding', location: 'Selangor',
+    img: asset('/images/sections/portfolio-01.jpg'), slug: 'sunway-wedding-fair',
+    overview: 'A spectacular wedding fair showcasing the finest vendors, venues, and wedding inspirations. The largest wedding exhibition in the Klang Valley.',
+    stats: { participants: '5,000+', duration: '2 Days', vendors: '80+' },
+  },
+]
+---
+
+<Layout title="Our Work — Double Brain Creative & Event">
+  <Header client:load />
+
+  <section class="relative min-h-[60vh] flex items-center overflow-hidden bg-bg-dark pt-24">
+    <div class="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-50" />
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-16 w-full">
+      <div class="max-w-[700px]">
+        <div class="w-16 h-1 bg-accent rounded-full mb-6" />
+        <h1 class="font-heading text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.0] tracking-[-0.04em] text-primary mb-6">
+          Our Work
+        </h1>
+        <p class="text-lg text-text-light max-w-[560px] leading-relaxed">
+          Every event tells a story. Here are some of our favourites.
+        </p>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+  </section>
+
+  <WorkGallery projects={projects} client:load />
+
+  <Footer />
+  <FloatingButtons />
+</Layout>

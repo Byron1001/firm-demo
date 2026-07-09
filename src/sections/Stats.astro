@@ -1,29 +1,30 @@
 ---
 import { asset } from '../lib/assets'
+import { useTranslations } from '../i18n'
 
-let stats = [
-  { val: 270, suffix: '+', label: 'Projects Delivered', desc: 'Big stages, small details. Each one designed to leave a mark.', img: asset('/images/sections/stats-01.jpg') },
-  { val: 90, suffix: '%', label: 'Loyal Clients', desc: 'Our clients love to come back, proof that true partnership lasts.', img: asset('/images/sections/stats-02.jpg') },
-  { val: 12, suffix: '+', label: 'Years Experience', desc: 'One team. Twelve years of craft. Countless stories told.', img: asset('/images/sections/stats-04.jpg') },
-  { val: 0, suffix: '', label: 'Creative Ideas', desc: 'That\u2019s ideas, not coffee. Brilliant ones, brewed daily.', img: asset('/images/sections/stats-03.jpg'), infinite: true },
+interface Props { locale?: 'en' | 'ms'; }
+const { locale = 'en' } = Astro.props;
+const t = useTranslations(locale);
+
+const stats = [
+  { val: 270, suffix: '+', label: t.stats.items[0].label, desc: t.stats.items[0].desc, img: asset('/images/sections/stats-01.jpg') },
+  { val: 90, suffix: '%', label: t.stats.items[1].label, desc: t.stats.items[1].desc, img: asset('/images/sections/stats-02.jpg') },
+  { val: 12, suffix: '+', label: t.stats.items[2].label, desc: t.stats.items[2].desc, img: asset('/images/sections/stats-04.jpg') },
+  { val: 0, suffix: '', label: t.stats.items[3].label, desc: t.stats.items[3].desc, img: asset('/images/sections/stats-03.jpg'), infinite: true },
 ]
 ---
 
-<section class="py-[120px] max-sm:py-20 bg-bg-alt overflow-hidden">
+<section class="py-[120px] max-sm:py-20 bg-accent overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12 reveal">
-    <div class="flex items-center gap-3 mb-4">
-      <span class="w-10 h-px bg-accent bar-reveal" />
-      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">By the Numbers</span>
-    </div>
-    <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] max-w-[500px] reveal reveal-delay-1">
-      Where Passion Meets Precision
+    <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] max-w-[500px] text-surface reveal">
+      {t.stats.heading}
     </h2>
   </div>
 
-  <div class="overflow-x-auto pb-6 scrollbar-hide">
+  <div class="overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory">
     <div class="flex gap-6 px-6 lg:px-16 w-max stagger-reveal" id="stats-track">
       {stats.map((s, idx) => (
-        <div class="group relative w-[340px] sm:w-[380px] aspect-square overflow-hidden rounded-2xl bg-bg-dark shrink-0">
+        <div class="group relative w-[340px] sm:w-[380px] aspect-square overflow-hidden rounded-2xl bg-bg-dark shrink-0 snap-start">
           <img src={s.img} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
           <div class="absolute inset-0 p-8 flex flex-col justify-end">

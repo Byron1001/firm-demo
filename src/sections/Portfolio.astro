@@ -4,6 +4,11 @@ import { client } from '../lib/sanity'
 import { galleryClientsQuery } from '../lib/sanity.queries'
 import { urlFor } from '../lib/sanity.image'
 import { asset } from '../lib/assets'
+import { useTranslations } from '../i18n'
+
+export interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+const t = useTranslations(locale)
 
 let projects = [
   { title: 'Petronas Leadership Summit', category: 'Corporate Conference', location: 'Kuala Lumpur', img: asset('/images/sections/portfolio-03.jpg'), slug: 'petronas-leadership-summit' },
@@ -26,16 +31,70 @@ try {
   } catch (e) { console.error('Sanity fetch failed (portfolio):', e) }
 ---
 
-<section id="portfolio" class="py-[120px] max-sm:py-20 overflow-hidden bg-surface">
+<section id="portfolio" class="py-[200px] max-sm:py-24 overflow-hidden bg-surface">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-16">
-    <div class="flex items-center gap-3 mb-4 reveal">
-      <span class="w-10 h-px bg-accent bar-reveal" />
-      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Our Work</span>
-    </div>
-    <h2 class="font-heading text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.0] tracking-[-0.04em] max-w-[700px] reveal reveal-delay-1">
-      Selected<br />Projects
+    <h2 class="font-heading text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.0] tracking-[-0.04em] max-w-[700px] reveal">
+      {t.portfolio.heading.split('\n')[0]}<br />{t.portfolio.heading.split('\n')[1]}
     </h2>
   </div>
 
-  <PortfolioCarousel projects={projects} client:load />
+  <div class="reveal">
+    <PortfolioCarousel projects={projects} locale={locale} client:load />
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mt-32 max-sm:mt-20">
+
+    <div class="w-16 h-px bg-accent/50 mx-auto mb-16 reveal"></div>
+
+    <h3 class="font-heading text-[clamp(1.25rem,2.5vw,1.8rem)] font-semibold leading-[1.0] tracking-[-0.02em] text-white/60 text-center mb-10 reveal">
+      {t.portfolio.showreelHeading}
+    </h3>
+
+    <div class="relative max-w-[900px] mx-auto aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_40px_-15px_#F38A14] reveal group cursor-pointer" data-showreel>
+      <img src="https://i.ytimg.com/vi/d77TQupCENc/maxresdefault.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" data-showreel-thumb />
+      <div class="absolute inset-0 bg-black/40 flex items-center justify-center" data-showreel-overlay>
+        <div class="w-20 h-20 rounded-full bg-accent flex items-center justify-center group-hover:scale-110 group-hover:bg-accent-dark transition-all duration-300 shadow-lg shadow-accent/20">
+          <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <iframe data-showreel-iframe class="absolute inset-0 w-full h-full hidden" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+
+    <div class="text-center mt-16 space-y-1">
+      <p class="font-heading text-[clamp(1.75rem,4vw,3.2rem)] font-bold leading-[1.0] tracking-[-0.04em] reveal reveal-delay-2">
+        {t.portfolio.tagline1}
+      </p>
+      <p class="font-heading text-[clamp(1.75rem,4vw,3.2rem)] font-bold leading-[1.0] tracking-[-0.04em] reveal reveal-delay-3">
+        {t.portfolio.tagline2}
+      </p>
+    </div>
+
+    <div class="text-center mt-12 reveal reveal-delay-4">
+      <a href={`${import.meta.env.BASE_URL}#contact`} class="inline-flex items-center gap-2.5 text-sm font-semibold text-white/50 hover:text-accent transition-colors group">
+        {t.portfolio.cta}
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+  </div>
+
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('[data-showreel]');
+    if (!container) return;
+    container.addEventListener('click', () => {
+      const iframe = container.querySelector('[data-showreel-iframe]');
+      const thumb = container.querySelector('[data-showreel-thumb]');
+      const overlay = container.querySelector('[data-showreel-overlay]');
+      if (!iframe) return;
+      iframe.src = 'https://www.youtube.com/embed/d77TQupCENc?autoplay=1&modestbranding=1&rel=0';
+      iframe.classList.remove('hidden');
+      if (thumb) thumb.classList.add('hidden');
+      if (overlay) overlay.classList.add('hidden');
+    });
+  });
+</script>

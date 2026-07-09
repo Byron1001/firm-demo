@@ -1,46 +1,33 @@
 ---
-const cities = [
-  'Kuala Lumpur',
-  'Penang',
-  'Johor Bahru',
-  'Melaka',
-  'Kota Kinabalu',
-  'Kuching',
-  'Langkawi',
-  'Shah Alam',
-  'Ipoh',
-  'Putrajaya',
-  'Kuala Terengganu',
-  'George Town',
-  'Petaling Jaya',
-  'Seremban',
-  'Alor Setar',
-  'Kota Bharu',
-]
+import { useTranslations } from '../i18n'
+
+export interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+const t = useTranslations(locale)
+
+const cities = t.cityTicker.cities as string[]
 ---
 
-<section class="py-20 overflow-hidden bg-bg-alt">
+<section class="py-[120px] max-sm:py-20 bg-bg-alt">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 mb-12 reveal">
     <div class="flex items-center gap-3 mb-4">
       <span class="w-10 h-px bg-accent bar-reveal" />
-      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">Across Malaysia</span>
+      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-accent">{t.cityTicker.sectionLabel}</span>
     </div>
-    <p class="font-heading text-[clamp(1.5rem,3vw,2.5rem)] font-bold leading-[1.1] tracking-[-0.03em] max-w-[600px] reveal reveal-delay-1">
-      We deliver everywhere in Malaysia
+    <p class="font-heading text-[clamp(1.5rem,3vw,2.5rem)] font-bold leading-[1.1] tracking-[-0.03em] max-w-[600px] reveal">
+      {t.cityTicker.heading}
     </p>
   </div>
 
-  <div class="flex overflow-hidden">
-    <div class="flex gap-8 animate-marquee-reverse whitespace-nowrap items-center py-4">
-      {[...cities, ...cities].map((city, i) => (
-        <span key={i} class="font-heading text-sm font-semibold text-white/30 tracking-[0.15em] uppercase flex items-center gap-8">
-          <svg class="w-4 h-4 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
-          {city}
-        </span>
-      ))}
-    </div>
+  <div class="flex flex-wrap justify-center gap-4 px-6 lg:px-16 max-w-[900px] mx-auto stagger-reveal">
+    {cities.map((city, i) => (
+      <span key={i} class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-white/40 tracking-[0.1em] uppercase hover:text-accent hover:border-accent/30 transition-colors duration-300">
+        <svg class="w-3 h-3 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+        </svg>
+        {city}
+      </span>
+    ))}
   </div>
 </section>

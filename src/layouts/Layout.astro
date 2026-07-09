@@ -2,41 +2,122 @@
 import '../styles/global.css';
 import { asset } from '../lib/assets';
 import NotificationToast from '../components/NotificationToast';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import WhatsAppChat from '../components/WhatsAppChat';
+import SplashCursor from '../components/SplashCursor';
+import CookieConsent from '../components/CookieConsent';
+import { useTranslations } from '../i18n';
 
 interface Props {
   title?: string;
   description?: string;
+  locale?: 'en' | 'ms';
 }
 
-const { title = 'Double Brain Creative & Event SDN BHD — Premier Event Management', description = 'We craft experiences that audiences feel, not just attend. Corporate events, weddings, branding, and exhibitions across Malaysia.' } = Astro.props;
+const { title, description, locale = 'en' } = Astro.props;
+const t = useTranslations(locale);
+
+const pageTitle = title || t.site.title;
+const pageDesc = description || t.site.description;
+
+const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
+const siteUrl = 'https://byron1001.github.io/firm-demo';
+const logoUrl = asset('/favicon.svg');
+const socialUrls = [
+  'https://www.facebook.com/DoubleBrainCreative',
+  'https://www.instagram.com/doublebraincreative',
+  'https://www.linkedin.com/company/doublebraincreative',
+  'https://www.tiktok.com/@doublebraincreative',
+  'https://wa.me/60123456790',
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <link rel="alternate" hreflang={locale === 'ms' ? 'en' : 'ms'} href={`${siteUrl}${locale === 'ms' ? '' : '/ms'}${Astro.url.pathname.replace(/^\/ms/, '')}`} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl + Astro.url.pathname.replace(/^\/ms/, '')} />
     <meta property="og:image" content={asset('/images/sections/og-image.jpg')} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={asset('/images/sections/og-image.jpg')} />
+    <meta property="og:locale" content={locale === 'ms' ? 'ms_MY' : 'en_MY'} />
+    <meta property="og:site_name" content={t.structuredData.orgName} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    {GA_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied'
+          });
+          gtag('js', new Date());
+          gtag('config', '{$GA_ID}', {
+            'send_page_view': true,
+            'anonymize_ip': true
+          });
+        </script>
+      </>
+    )}
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: t.structuredData.orgName,
+      url: siteUrl,
+      logo: logoUrl,
+      description: t.structuredData.orgDescription,
+      foundingDate: '2023',
+      sameAs: socialUrls,
+      contactPoint: [
+        { '@type': 'ContactPoint', telephone: '+60-3-1234-5678', contactType: 'sales', email: 'hello@doublebraincreative.com' },
+        { '@type': 'ContactPoint', telephone: '+60-12-345-6790', contactType: 'customer support', email: 'hello@doublebraincreative.com' },
+      ],
+      address: [
+        { '@type': 'PostalAddress', name: 'Kuala Lumpur', streetAddress: 'Suite 12-01, Menara HLX', addressLocality: 'Kuala Lumpur', postalCode: '50050', addressCountry: 'MY' },
+        { '@type': 'PostalAddress', name: 'Penang', streetAddress: '25 Beach Street, Suite 8', addressLocality: 'George Town, Penang', postalCode: '10300', addressCountry: 'MY' },
+        { '@type': 'PostalAddress', name: 'Johor Bahru', streetAddress: 'Level 15, Menara JLand', addressLocality: 'Johor Bahru', postalCode: '80000', addressCountry: 'MY' },
+      ],
+    })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      url: siteUrl,
+      name: t.structuredData.orgName,
+      description: t.site.description,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: { '@type': 'EntryPoint', urlTemplate: `${siteUrl}/?s={search_term_string}` },
+        'query-input': 'required name=search_term_string',
+      },
+    })} />
   </head>
   <body class="antialiased">
+    <SplashCursor client:load />
+    <AnnouncementBar />
     <div class="overflow-x-hidden">
       <slot />
     </div>
+    <CookieConsent client:load />
     <NotificationToast client:load />
+    <WhatsAppChat client:load />
   </body>
 </html>
 
@@ -44,7 +125,7 @@ const { title = 'Double Brain Creative & Event SDN BHD — Premier Event Managem
   import { initAll, destroyAll } from '../utils/scrollAnimations';
 
   document.addEventListener('DOMContentLoaded', () => {
-    initAll();
+    requestAnimationFrame(() => requestAnimationFrame(() => initAll()));
   });
 
   if (import.meta.hot) {

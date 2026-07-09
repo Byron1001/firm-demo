@@ -1,0 +1,53 @@
+---
+import { useTranslations } from '../../i18n';
+const t = useTranslations('ms');
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header';
+import Hero from '../../sections/Hero.astro';
+import MarqueeStrip from '../../sections/MarqueeStrip.astro';
+import Portfolio from '../../sections/Portfolio.astro';
+import ServiceCards from '../../sections/ServiceCards.astro';
+import Stats from '../../sections/Stats.astro';
+import About from '../../sections/About.astro';
+import Clients from '../../sections/Clients.astro';
+import DataTable from '../../sections/DataTable.astro';
+import Team from '../../sections/Team.astro';
+import Testimonials from '../../sections/Testimonials.astro';
+import Coverage from '../../sections/Coverage.astro';
+import Insights from '../../sections/Insights.astro';
+import DualCta from '../../sections/DualCta.astro';
+import Faq from '../../sections/Faq.astro';
+import Cta from '../../sections/Cta.astro';
+import Contact from '../../sections/Contact.astro';
+import CityTicker from '../../sections/CityTicker.astro';
+import Footer from '../../sections/Footer.astro';
+import FloatingButtons from '../../sections/FloatingButtons.astro';
+import Social from '../../sections/Social.astro';
+---
+
+<Layout locale="ms">
+  <Header client:load locale="ms" />
+  <Hero locale="ms" />
+  <MarqueeStrip locale="ms" />
+  <Portfolio locale="ms" />
+  <ServiceCards locale="ms" />
+  <About locale="ms" />
+  <div class="h-24 bg-gradient-to-b from-surface to-accent" />
+  <Stats locale="ms" />
+  <div class="h-24 bg-gradient-to-b from-accent to-bg-alt" />
+  <Clients locale="ms" />
+  <DataTable locale="ms" />
+  <Team locale="ms" />
+  <Testimonials locale="ms" />
+  <Coverage locale="ms" />
+  <Insights locale="ms" />
+  <Social locale="ms" />
+  <DualCta locale="ms" />
+  <Faq locale="ms" />
+  <Cta locale="ms" />
+  <div class="h-24 bg-gradient-to-b from-bg-dark to-bg-alt" />
+  <Contact locale="ms" />
+  <CityTicker locale="ms" />
+  <Footer locale="ms" />
+  <FloatingButtons locale="ms" />
+</Layout>

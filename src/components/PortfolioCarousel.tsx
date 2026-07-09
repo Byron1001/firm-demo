@@ -1,17 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import SpotlightCard from './SpotlightCard';
+import { useTranslations } from '../i18n';
 
 interface Project {
   title: string; category: string; location: string; img: string; slug: string;
 }
 
-interface Props { projects: Project[] }
+interface Props { projects: Project[]; locale?: string }
 
 const LERP = 0.1
 const MAX_DIST_FACTOR = 0.75
 const SCALE_MIN = 0.85
 const OPACITY_MIN = 0.35
 
-export default function PortfolioCarousel({ projects }: Props) {
+export default function PortfolioCarousel({ projects, locale = 'en' }: Props) {
+  const t = useTranslations(locale)
   const trackRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [displayIndex, setDisplayIndex] = useState(0);
@@ -120,13 +123,14 @@ export default function PortfolioCarousel({ projects }: Props) {
     if (!el) return;
 
     const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
       if (!userInteractedRef.current) {
         userInteractedRef.current = true;
         clearInterval(intervalRef.current);
       }
       isScrollingRef.current = true;
-      scrollAccumRef.current += e.deltaY;
+      scrollAccumRef.current -= e.deltaX * 0.35;
       visualRef.current = scrollAccumRef.current;
       targetRef.current = scrollAccumRef.current;
 
@@ -190,6 +194,7 @@ export default function PortfolioCarousel({ projects }: Props) {
   };
 
   return (
+    <SpotlightCard spotlightColor="rgba(243, 138, 20, 0.12)">
     <div ref={carouselRef}
       className="relative overflow-hidden cursor-grab active:cursor-grabbing select-none"
       onMouseDown={(e) => handlePointerDown(e.clientX)}
@@ -202,8 +207,8 @@ export default function PortfolioCarousel({ projects }: Props) {
     >
       <div ref={trackRef} className="flex gap-6 will-change-transform">
         {projects.map((p, i) => (
-          <a key={`orig-${i}`} href={`/case-study/${p.slug}`}
-            className="relative w-[85vw] max-w-[720px] aspect-[4/3] overflow-hidden rounded-2xl shrink-0 bg-bg-dark will-change-transform"
+          <a key={`orig-${i}`} href={`${import.meta.env.BASE_URL}case-study/${p.slug}`}
+            className="relative w-[85vw] max-w-[720px] aspect-[4/3] overflow-hidden rounded-2xl shrink-0 bg-bg-dark will-change-transform group"
           >
             <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading={i < 2 ? 'eager' : 'lazy'} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
@@ -220,8 +225,8 @@ export default function PortfolioCarousel({ projects }: Props) {
           </a>
         ))}
         {projects.map((p, i) => (
-          <a key={`clone-${i}`} href={`/case-study/${p.slug}`} aria-hidden="true"
-            className="relative w-[85vw] max-w-[720px] aspect-[4/3] overflow-hidden rounded-2xl shrink-0 bg-bg-dark will-change-transform"
+          <a key={`clone-${i}`} href={`${import.meta.env.BASE_URL}case-study/${p.slug}`} aria-hidden="true"
+            className="relative w-[85vw] max-w-[720px] aspect-[4/3] overflow-hidden rounded-2xl shrink-0 bg-bg-dark will-change-transform group"
           >
             <img src={p.img} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
@@ -236,21 +241,27 @@ export default function PortfolioCarousel({ projects }: Props) {
         ))}
       </div>
 
-      <div className="absolute bottom-8 right-8 lg:right-16 flex items-center gap-4 z-10">
+      <div className="absolute bottom-6 sm:bottom-8 right-4 sm:right-8 lg:right-16 flex items-center gap-2 sm:gap-4 z-10">
         <button onClick={(e) => { e.preventDefault(); if (!userInteractedRef.current) { userInteractedRef.current = true; clearInterval(intervalRef.current); } snapToIndex(indexRef.current - 1); }}
-          className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer bg-transparent"
-          aria-label="Previous">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" /></svg>
+          className="w-11 sm:w-12 h-11 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer bg-transparent"
+          aria-label={t.portfolio.prev}>
+          <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" /></svg>
         </button>
-        <span className="text-white/60 text-sm font-mono tabular-nums">
-          {String(displayIndex + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
-        </span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+          {projects.map((_, i) => (
+            <button key={i} onClick={(e) => { e.preventDefault(); if (!userInteractedRef.current) { userInteractedRef.current = true; clearInterval(intervalRef.current); } snapToIndex(indexRef.current - displayIndex + i); }}
+              className={`w-3 sm:w-2.5 h-3 sm:h-2.5 rounded-full transition-all duration-300 cursor-pointer border-0 ${i === displayIndex ? 'bg-accent scale-125' : 'bg-white/30 hover:bg-white/50'}`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
         <button onClick={(e) => { e.preventDefault(); if (!userInteractedRef.current) { userInteractedRef.current = true; clearInterval(intervalRef.current); } snapToIndex(indexRef.current + 1); }}
-          className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer bg-transparent"
-          aria-label="Next">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" /></svg>
+          className="w-11 sm:w-12 h-11 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 cursor-pointer bg-transparent"
+          aria-label={t.portfolio.next}>
+          <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" /></svg>
         </button>
       </div>
     </div>
+    </SpotlightCard>
   );
 }

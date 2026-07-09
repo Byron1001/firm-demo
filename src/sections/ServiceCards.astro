@@ -4,6 +4,9 @@ import { practiceAreasQuery } from '../lib/sanity.queries'
 import ExpertiseCards from '../components/ExpertiseCards'
 import { asset } from '../lib/assets'
 
+interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+
 let services = [
   { num: '01', title: 'Corporate Events', desc: 'From corporate summits to annual dinners, we create experiences that fuel alignment and connection between audiences and business goals.', img: asset('/images/sections/pexels-corporate-2k.jpg'), video: '', slug: 'corporate-events' },
   { num: '02', title: 'Exhibitions', desc: 'Presence isn\'t enough. We design modular brand spaces that speak, perform and stick, with strategy and flair built into every wall.', img: asset('/images/sections/pexels-exhibition-2k.jpg'), video: '', slug: 'exhibitions' },
@@ -28,5 +31,5 @@ try {
 ---
 
 <section id="services" class="bg-surface">
-  <ExpertiseCards services={services} client:load />
+  <ExpertiseCards services={services} locale={locale} client:load />
 </section>

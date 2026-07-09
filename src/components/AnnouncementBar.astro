@@ -1,0 +1,81 @@
+---
+import { useTranslations } from '../i18n'
+
+export interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+const t = useTranslations(locale)
+
+const announceMessages = t.announcement.messages as string[]
+const announceEmojis = ['🎉', '📢', '💡']
+const announcements = announceMessages.map((text: string, i: number) => ({ emoji: announceEmojis[i] || '🎉', text }))
+const msg = announcements[Math.floor(Math.random() * announcements.length)]
+---
+
+<div id="announcement-bar" class="relative z-[51] bg-accent text-primary text-center text-sm font-medium py-2.5 px-4 transition-all duration-500 overflow-hidden" style="max-height: 60px">
+  <div class="max-w-[1440px] mx-auto flex items-center justify-center gap-2 pr-8">
+    <span class="shrink-0">{msg.emoji}</span>
+    <span>{msg.text}</span>
+  </div>
+  <button
+    id="announcement-close"
+    class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-primary/60 hover:text-primary transition-colors cursor-pointer bg-transparent border-none"
+    aria-label={t.announcement.dismiss}
+  >
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  const bar = document.getElementById('announcement-bar');
+  const closeBtn = document.getElementById('announcement-close');
+
+  if (bar && closeBtn) {
+    const setAnnHeight = (px) => {
+      document.documentElement.style.setProperty('--ann-height', px);
+    };
+
+    const dismissed = sessionStorage.getItem('ann-bar-dismissed');
+    if (dismissed) {
+      bar.style.display = 'none';
+      setAnnHeight('0px');
+    } else {
+      setAnnHeight(bar.offsetHeight + 'px');
+    }
+
+    let intersector = null;
+
+    if (!dismissed) {
+      intersector = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          setAnnHeight(entry.isIntersecting ? bar.offsetHeight + 'px' : '0px');
+        }
+      }, { threshold: 0 });
+      intersector.observe(bar);
+    }
+
+    window.addEventListener('resize', () => {
+      if (bar.style.display === 'none') return;
+      const rect = bar.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        setAnnHeight(bar.offsetHeight + 'px');
+      }
+    });
+
+    closeBtn.addEventListener('click', () => {
+      if (intersector) { intersector.disconnect(); intersector = null; }
+      bar.style.opacity = '0';
+      bar.style.maxHeight = '0';
+      bar.style.paddingTop = '0';
+      bar.style.paddingBottom = '0';
+      bar.style.marginTop = '0';
+      bar.style.marginBottom = '0';
+      sessionStorage.setItem('ann-bar-dismissed', '1');
+      setTimeout(() => {
+        bar.style.display = 'none';
+        setAnnHeight('0px');
+      }, 500);
+    });
+  }
+</script>

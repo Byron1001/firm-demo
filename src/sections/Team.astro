@@ -4,17 +4,18 @@ import { teamMembersQuery } from '../lib/sanity.queries'
 import { urlFor } from '../lib/sanity.image'
 import { ICONS } from '../icons'
 import { asset } from '../lib/assets'
+import { useTranslations } from '../i18n'
 
-let team = [
-  { name: 'Amira Yusof', role: 'Creative Director', spec: 'Vision & Concept Development', photo: asset('/images/sections/team-amira.jpg') },
-  { name: 'Brandon Koh', role: 'Event Director', spec: 'Corporate Events & Conferences', photo: asset('/images/sections/team-brandon.jpg') },
-  { name: 'Catherine Lim', role: 'Head of Weddings', spec: 'Wedding Planning & Coordination', photo: asset('/images/sections/team-catherine.jpg') },
-  { name: 'Daniel Raj', role: 'Creative Lead', spec: 'Branding & Creative Design', photo: asset('/images/sections/team-daniel.jpg') },
-  { name: 'Emily Chen', role: 'Senior Event Coordinator', spec: 'Exhibitions & Trade Shows', photo: asset('/images/sections/team-emily.jpg') },
-  { name: 'Farid Ismail', role: 'Production Manager', spec: 'Technical Production & Logistics', photo: asset('/images/sections/team-farid.jpg') },
-  { name: 'Grace Wong', role: 'Client Relations Director', spec: 'Client Experience & Partnerships', photo: asset('/images/sections/team-grace.jpg') },
-  { name: 'Hannah Tan', role: 'Senior Designer', spec: 'Visual Design & Styling', photo: asset('/images/sections/team-hannah.jpg') },
-]
+export interface Props { locale?: string }
+const { locale = 'en' } = Astro.props
+const t = useTranslations(locale)
+
+let team = t.team.members.map((m: { name: string; role: string; spec: string }, i: number) => ({
+  name: m.name,
+  role: m.role,
+  spec: m.spec,
+  photo: [asset('/images/sections/team-amira.jpg'), asset('/images/sections/team-brandon.jpg'), asset('/images/sections/team-catherine.jpg'), asset('/images/sections/team-daniel.jpg'), asset('/images/sections/team-emily.jpg'), asset('/images/sections/team-farid.jpg'), asset('/images/sections/team-grace.jpg'), asset('/images/sections/team-hannah.jpg')][i] || '',
+}))
 
 try {
   const docs = await client.fetch(teamMembersQuery)
@@ -31,13 +32,9 @@ try {
 
 <section id="team" class="py-[120px] max-sm:py-20 bg-surface">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
-      <div class="flex items-center gap-3 mb-4 reveal">
-        <span class="w-10 h-px bg-accent bar-reveal" />
-        <span class="text-xs font-semibold tracking-[0.15em] uppercase text-accent">Our People</span>
-      </div>
-      <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.15] tracking-[-0.02em] text-primary mb-4 reveal reveal-delay-1">Meet Our Team</h2>
-      <p class="text-text-light text-[1.1rem] max-w-[600px] leading-relaxed mb-10 reveal reveal-delay-2">
-        Creative professionals dedicated to crafting unforgettable experiences with passion and precision.
+      <h2 class="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.15] tracking-[-0.02em] text-primary mb-4 reveal">{t.team.heading}</h2>
+      <p class="text-text-light text-[1.1rem] max-w-[600px] leading-relaxed mb-10 reveal">
+        {t.team.subtitle}
       </p>
   </div>
   <div class="overflow-x-auto pb-4 scrollbar-hide">
@@ -59,9 +56,9 @@ try {
               <span class="text-accent text-sm font-semibold block mb-2">{m.role}</span>
               <p class="text-text-light text-sm leading-relaxed">{m.spec}</p>
               <div class="flex gap-3 mt-4 pt-4 border-t border-white/10">
-                <a href={`https://linkedin.com/in/${m.name.toLowerCase().replace(/\s+/g, '-')}`} target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-text-light hover:bg-accent hover:text-white transition-[background-color,color]" aria-label="LinkedIn"><span class="w-3.5 h-3.5" set:html={ICONS.linkedin} /></a>
-                <a href={`https://x.com/${m.name.toLowerCase().replace(/\s+/g, '-')}`} target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-text-light hover:bg-accent hover:text-white transition-[background-color,color]" aria-label="X"><span class="w-3.5 h-3.5" set:html={ICONS.x} /></a>
-                <a href={`mailto:${m.name.toLowerCase().replace(/\s+/g, '.')}@doublebraincreative.com`} class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-text-light hover:bg-accent hover:text-white transition-[background-color,color]" aria-label="Email"><span class="w-3.5 h-3.5" set:html={ICONS.email} /></a>
+                <a href={`https://linkedin.com/in/${m.name.toLowerCase().replace(/\s+/g, '-')}`} target="_blank" rel="noopener" class="min-w-[44px] min-h-[44px] rounded-lg bg-white/10 flex items-center justify-center text-text-light hover:bg-accent hover:text-white transition-[background-color,color]" aria-label={t.team.linkedin}><span class="w-3.5 h-3.5" set:html={ICONS.linkedin} /></a>
+                <a href={`https://x.com/${m.name.toLowerCase().replace(/\s+/g, '-')}`} target="_blank" rel="noopener" class="min-w-[44px] min-h-[44px] rounded-lg bg-white/10 flex items-center justify-center text-text-light hover:bg-accent hover:text-white transition-[background-color,color]" aria-label="X"><span class="w-3.5 h-3.5" set:html={ICONS.x} /></a>
+                <a href={`mailto:${m.name.toLowerCase().replace(/\s+/g, '.')}@doublebraincreative.com`} class="min-w-[44px] min-h-[44px] rounded-lg bg-white/10 flex items-center justify-center text-text-light hover:bg-accent hover:text-white transition-[background-color,color]" aria-label={t.team.email}><span class="w-3.5 h-3.5" set:html={ICONS.email} /></a>
               </div>
             </div>
           </div>

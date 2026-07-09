@@ -1,12 +1,14 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { useTranslations } from '../i18n';
 
 interface Service {
   num: string; title: string; desc: string; img: string; video?: string; slug: string;
 }
 
-interface Props { services: Service[] }
+interface Props { services: Service[]; locale?: string }
 
-export default function ExpertiseCards({ services }: Props) {
+export default function ExpertiseCards({ services, locale = 'en' }: Props) {
+  const t = useTranslations(locale);
   const rafRef = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const phaseRef = useRef<'entering' | 'entered'>('entering');
@@ -18,7 +20,8 @@ export default function ExpertiseCards({ services }: Props) {
 
     const viewH = window.innerHeight;
     const rect = container.getBoundingClientRect();
-    const progress = -rect.top / (total * viewH);
+    const scrollable = (total * 1.2 - 1) * viewH;
+    const progress = -rect.top / (scrollable || viewH);
     const clamped = Math.max(0, Math.min(1, progress));
 
     const inView = phaseRef.current === 'entering' ? false : (clamped > 0.015 && clamped < 1);
@@ -95,7 +98,7 @@ export default function ExpertiseCards({ services }: Props) {
   }, [tick]);
 
   return (
-    <div ref={containerRef} style={{ height: `${total * 100}vh` }}>
+    <div ref={containerRef} style={{ height: `${total * 120}vh` }}>
       {services.map((s, i) => (
         <div key={s.slug} id={`service-${s.slug}`}
           className="fixed inset-0 bg-surface overflow-hidden will-change-transform flex items-center"
@@ -116,7 +119,7 @@ export default function ExpertiseCards({ services }: Props) {
                 href={`/services/${s.slug}`}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors group"
               >
-                Learn more
+                {t.expertise.learnMore}
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -149,15 +152,15 @@ export default function ExpertiseCards({ services }: Props) {
         className="fixed inset-0 z-[200] flex items-center pointer-events-none overflow-hidden"
         style={{ opacity: 0, visibility: 'hidden' }}
       >
-        <img src={services[0].img} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="eager" />
+        <img src={services[0].img} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="eager" />
         <div className="absolute inset-0 bg-gradient-to-b from-surface/60 via-surface/20 to-surface/60 pointer-events-none" />
         <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-16 w-full">
           <div className="flex items-center gap-3 mb-4">
-            <span className="w-10 h-px bg-accent bar-reveal" />
-            <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent">What We Do</span>
+            <span className="w-10 h-px bg-accent bar-reveal" data-gsap-bar="skip" />
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent">{t.expertise.sectionLabel}</span>
           </div>
           <h2 className="font-heading text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-primary">
-            Our Expertise
+            {t.expertise.heading}
           </h2>
         </div>
       </div>

@@ -1,0 +1,18 @@
+---
+import { useTranslations } from '../../i18n';
+const t = useTranslations('ms');
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header';
+import Careers from '../../sections/Careers.astro';
+import Footer from '../../sections/Footer.astro';
+import FloatingButtons from '../../sections/FloatingButtons.astro';
+---
+
+<Layout locale="ms">
+  <Header client:load locale="ms" />
+  <div class="pt-24">
+    <Careers locale="ms" />
+  </div>
+  <Footer locale="ms" />
+  <FloatingButtons locale="ms" />
+</Layout>

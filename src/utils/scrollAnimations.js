@@ -1,4 +1,8 @@
 import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 let lenisInstance = null
 let lenisRafId = null
@@ -11,8 +15,13 @@ export function initLenis() {
   lenisInstance = new Lenis({
     duration: prefersReduced ? 0 : 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    wheelMultiplier: 1,
+    wheelMultiplier: 1.5,
     touchMultiplier: 1.5,
+  })
+
+  lenisInstance.on('scroll', (e) => {
+    ScrollTrigger.update()
+    window.dispatchEvent(new CustomEvent('lenis-scroll', { detail: e }))
   })
 
   function raf(time) {
@@ -37,23 +46,94 @@ export function scrollToTop(duration = 1.2) {
 }
 
 export function initScrollReveal() {
-  const els = document.querySelectorAll('.reveal:not([data-scroll-observer])')
+  const els = document.querySelectorAll('.reveal:not([data-gsap-init])')
   if (!els.length) return
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed')
-          observer.unobserve(entry.target)
-        }
-      })
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-  )
   els.forEach((el) => {
-    el.setAttribute('data-scroll-observer', '')
-    observer.observe(el)
+    el.setAttribute('data-gsap-init', '')
+    const delay = parseFloat(getComputedStyle(el).transitionDelay) || 0
+    gsap.fromTo(el,
+      { y: 40, opacity: 0 },
+      {
+        y: 0, opacity: 1,
+        duration: 0.5,
+        delay,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
+  })
+}
+
+export function initClipReveal() {
+  const els = document.querySelectorAll('.clip-reveal:not([data-gsap-clip])')
+  if (!els.length) return
+
+  els.forEach((el) => {
+    el.setAttribute('data-gsap-clip', '')
+    gsap.fromTo(el,
+      { clipPath: 'inset(0 100% 0 0)' },
+      {
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 1.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
+  })
+}
+
+export function initStaggerReveal() {
+  const wrappers = document.querySelectorAll('.stagger-reveal:not([data-gsap-stagger])')
+  if (!wrappers.length) return
+
+  wrappers.forEach((wrapper) => {
+    wrapper.setAttribute('data-gsap-stagger', '')
+    const items = Array.from(wrapper.children)
+    gsap.fromTo(items,
+      { y: 30, opacity: 0 },
+      {
+        y: 0, opacity: 1,
+        duration: 0.5,
+        ease: 'power3.out',
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
+  })
+}
+
+export function initBarReveal() {
+  const els = document.querySelectorAll('.bar-reveal:not([data-gsap-bar])')
+  if (!els.length) return
+
+  els.forEach((el) => {
+    el.setAttribute('data-gsap-bar', '')
+    gsap.fromTo(el,
+      { clipPath: 'inset(0 100% 0 0)' },
+      {
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+        },
+      }
+    )
   })
 }
 
@@ -92,50 +172,6 @@ export function initCountUp() {
   })
 }
 
-export function initClipReveal() {
-  const els = document.querySelectorAll('.clip-reveal:not([data-clip-observer])')
-  if (!els.length) return
-
-  els.forEach((el) => el.setAttribute('data-clip-observer', ''))
-
-  function checkVisibility() {
-    const vh = window.innerHeight
-    document.querySelectorAll('.clip-reveal:not(.clip-revealed)').forEach((el) => {
-      const rect = el.getBoundingClientRect()
-      if (rect.top < vh * 0.85 && rect.bottom > 0) {
-        el.classList.add('clip-revealed')
-      }
-    })
-  }
-
-  checkVisibility()
-  window.addEventListener('scroll', checkVisibility, { passive: true })
-}
-
-export function initStaggerReveal() {
-  const wrappers = document.querySelectorAll('.stagger-reveal:not([data-stagger-observer])')
-  if (!wrappers.length) return
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return
-        const items = entry.target.children
-        Array.from(items).forEach((item, i) => {
-          item.style.transitionDelay = `${i * 0.08}s`
-          item.classList.add('revealed')
-        })
-        observer.unobserve(entry.target)
-      })
-    },
-    { threshold: 0.1 }
-  )
-  wrappers.forEach((el) => {
-    el.setAttribute('data-stagger-observer', '')
-    observer.observe(el)
-  })
-}
-
 export function initMouseParallax() {
   const cards = document.querySelectorAll('[data-tilt]:not([data-tilt-initialized])')
   if (!cards.length) return
@@ -146,10 +182,23 @@ export function initMouseParallax() {
       const rect = card.getBoundingClientRect()
       const x = (e.clientX - rect.left) / rect.width - 0.5
       const y = (e.clientY - rect.top) / rect.height - 0.5
-      card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${y * -6}deg)`
+      gsap.to(card, {
+        rotationY: x * 6,
+        rotationX: y * -6,
+        duration: 0.6,
+        ease: 'power2.out',
+        transformPerspective: 800,
+        overwrite: 'auto',
+      })
     })
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)'
+      gsap.to(card, {
+        rotationY: 0,
+        rotationX: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      })
     })
   })
 }
@@ -158,34 +207,82 @@ export function initVideoParallax() {
   const els = document.querySelectorAll('[data-parallax-video]:not([data-video-parallax-init])')
   if (!els.length) return
 
-  els.forEach((el) => el.setAttribute('data-video-parallax-init', ''))
-
-  function update() {
-    const vh = window.innerHeight
-    const vCenter = vh / 2
-    document.querySelectorAll('[data-parallax-video]').forEach((el) => {
-      const speed = parseFloat(el.getAttribute('data-parallax-video')) || 0.15
-      const rect = el.getBoundingClientRect()
-      const elCenter = rect.top + rect.height / 2
-      const offset = (elCenter - vCenter) * speed * -0.4
-      el.style.transform = `translate3d(0, ${offset}px, 0)`
+  els.forEach((el) => {
+    el.setAttribute('data-video-parallax-init', '')
+    const speed = parseFloat(el.getAttribute('data-parallax-video')) || 0.15
+    gsap.to(el, {
+      y: () => el.offsetHeight * speed * -0.3,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
     })
-  }
+  })
+}
 
-  if (lenisInstance) {
-    lenisInstance.on('scroll', update)
-  } else {
-    let ticking = false
-    const handler = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => { update(); ticking = false })
-        ticking = true
-      }
-    }
-    window.addEventListener('scroll', handler, { passive: true })
-  }
+export function initMagneticButtons() {
+  const buttons = document.querySelectorAll('[data-magnetic]:not([data-magnetic-init])')
+  if (!buttons.length) return
 
-  update()
+  buttons.forEach((btn) => {
+    btn.setAttribute('data-magnetic-init', '')
+
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect()
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.25
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.25
+      gsap.to(btn, {
+        x, y,
+        duration: 0.4,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      })
+    })
+
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, {
+        x: 0, y: 0,
+        duration: 0.4,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      })
+    })
+  })
+}
+
+export function initHeroParallax() {
+  const hero = document.getElementById('home')
+  if (!hero) return
+
+  const heroContent = document.getElementById('hero-content')
+  const heroOverlay = document.getElementById('hero-overlay')
+
+  gsap.to(heroContent, {
+    opacity: 0,
+    y: 60,
+    scale: 0.96,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  })
+
+  gsap.to(heroOverlay, {
+    opacity: 1,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  })
 }
 
 export function initStackReveal() {
@@ -207,26 +304,6 @@ export function initStackReveal() {
 
   update()
   window.addEventListener('scroll', update, { passive: true })
-}
-
-export function initBarReveal() {
-  const els = document.querySelectorAll('.bar-reveal:not([data-bar-observer])')
-  if (!els.length) return
-
-  els.forEach((el) => el.setAttribute('data-bar-observer', ''))
-
-  function checkVisibility() {
-    const vh = window.innerHeight
-    document.querySelectorAll('.bar-reveal:not(.bar-revealed)').forEach((el) => {
-      const rect = el.getBoundingClientRect()
-      if (rect.top < vh * 0.85 && rect.bottom > 0) {
-        el.classList.add('bar-revealed')
-      }
-    })
-  }
-
-  checkVisibility()
-  window.addEventListener('scroll', checkVisibility, { passive: true })
 }
 
 export function initVideoObserver() {
@@ -252,6 +329,7 @@ export function initVideoObserver() {
 }
 
 export function destroyAll() {
+  ScrollTrigger.getAll().forEach((t) => t.kill())
   destroyLenis()
 }
 
@@ -274,4 +352,6 @@ export function initAll() {
   initStaggerReveal()
   initMouseParallax()
   initVideoParallax()
+  initMagneticButtons()
+  initHeroParallax()
 }
