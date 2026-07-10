@@ -25,12 +25,12 @@ try {
 <section class="py-[120px] max-sm:py-20 bg-surface" id="faq">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
     <div class="text-center mb-16">
-      <h2 class="font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.15] tracking-[-0.02em] text-primary mb-4">{t.faq.heading}</h2>
-      <p class="text-text-light text-[1.05rem] max-w-[500px] mx-auto leading-relaxed">
+      <h2 class="reveal font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.15] tracking-[-0.02em] text-primary mb-4">{t.faq.heading}</h2>
+      <p class="reveal text-text-light text-[1.05rem] max-w-[500px] mx-auto leading-relaxed">
         {t.faq.subtitle}
       </p>
     </div>
-    <div class="max-w-[720px] mx-auto space-y-4">
+    <div class="stagger-reveal max-w-[720px] mx-auto space-y-4">
       <details class="group bg-bg-alt border border-white/10 rounded-2xl overflow-hidden transition-[box-shadow] duration-300 hover:shadow-md [&[open]]:shadow-md" open>
         <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
           <span class="font-heading font-semibold text-sm text-primary pr-4">{faqs[0].question}</span>

@@ -64,11 +64,6 @@ html.lenis body {
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-}
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
 }
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.15s; }
@@ -120,42 +115,24 @@ html.lenis body {
 
 .clip-reveal {
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.2s var(--ease-out);
-}
-.clip-reveal.clip-revealed {
-  clip-path: inset(0 0 0 0);
 }
 
 .bar-reveal {
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.6s var(--ease-out);
-}
-.bar-reveal.bar-revealed {
-  clip-path: inset(0 0 0 0);
 }
 
 .stagger-reveal > *:not(.sticky-note) {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-}
-.stagger-reveal > *:not(.sticky-note).revealed {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .stack-card {
   opacity: 0;
   transform: rotateZ(20deg);
-  transition: transform 0.7s var(--ease-out), opacity 0.5s var(--ease-out);
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   z-index: var(--z, 10);
 }
-.stack-card.revealed {
-  opacity: 1;
-  transform: rotateZ(var(--spin, 0deg));
-}
-.stack-card.revealed:hover {
+.stack-card:hover {
   box-shadow: 0 8px 28px rgba(0,0,0,0.35);
 }
 .animate-fade-in-up {
@@ -184,15 +161,10 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
   .reveal,
-  .reveal.revealed,
   .clip-reveal,
-  .clip-reveal.clip-revealed,
   .bar-reveal,
-  .bar-reveal.bar-revealed,
   .stack-card,
-  .stack-card.revealed,
-  .stagger-reveal > *,
-  .stagger-reveal > *:not(.sticky-note).revealed {
+  .stagger-reveal > *:not(.sticky-note) {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;

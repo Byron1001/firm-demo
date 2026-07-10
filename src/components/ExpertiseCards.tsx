@@ -14,6 +14,26 @@ export default function ExpertiseCards({ services, locale = 'en' }: Props) {
   const phaseRef = useRef<'entering' | 'entered'>('entering');
   const total = services.length;
 
+  function applyMediaParallax(card: HTMLElement, parallaxY: number, scrollProgress: number) {
+    const video = card.querySelector('video');
+    if (video) {
+      const dur = video.duration || 0;
+      if (dur > 0) {
+        const target = scrollProgress * dur;
+        if (Math.abs(video.currentTime - target) > 0.15) {
+          video.currentTime = target;
+        }
+      }
+      video.style.transform = `translateY(${parallaxY}px)`;
+    } else {
+      const img = card.querySelector('img');
+      if (img) {
+        img.style.filter = `brightness(${0.85 + scrollProgress * 0.15})`;
+        img.style.transform = `translateY(${parallaxY}px) scale(${1 + scrollProgress * 0.03})`;
+      }
+    }
+  }
+
   const tick = useCallback(() => {
     const container = containerRef.current;
     if (!container) { rafRef.current = requestAnimationFrame(tick); return; }
@@ -25,43 +45,43 @@ export default function ExpertiseCards({ services, locale = 'en' }: Props) {
     const clamped = Math.max(0, Math.min(1, progress));
 
     const inView = phaseRef.current === 'entering' ? false : (clamped > 0.015 && clamped < 1);
-    const frontIndex = Math.round(clamped * (total - 1));
 
-    for (let i = 0; i < total; i++) {
-      const card = container.children[i] as HTMLElement;
-      if (!card) continue;
+    if (inView) {
+      const rawPos = clamped * (total - 1);
+      const frontIndex = Math.min(Math.floor(rawPos), total - 1);
+      const fade = rawPos - frontIndex;
 
-      if (!inView || i !== frontIndex) {
+      for (let i = 0; i < total; i++) {
+        const card = container.children[i] as HTMLElement;
+        if (!card) continue;
+
+        card.style.transform = 'none';
+
+        if (i === frontIndex) {
+          const opacity = 1 - fade;
+          card.style.opacity = String(opacity);
+          card.style.zIndex = '50';
+          card.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+          applyMediaParallax(card, Math.sin(fade * Math.PI) * (-20), clamped);
+        } else if (i === frontIndex + 1 && frontIndex < total - 1) {
+          const opacity = fade;
+          card.style.opacity = String(opacity);
+          card.style.zIndex = '100';
+          card.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+          applyMediaParallax(card, Math.sin((1 - fade) * Math.PI) * (-20), clamped);
+        } else {
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+          card.style.zIndex = '0';
+        }
+      }
+    } else {
+      for (let i = 0; i < total; i++) {
+        const card = container.children[i] as HTMLElement;
+        if (!card) continue;
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
         card.style.zIndex = '0';
-        continue;
-      }
-
-      card.style.transform = 'none';
-      card.style.opacity = '1';
-      card.style.zIndex = '100';
-      card.style.pointerEvents = 'auto';
-
-      const localProgress = clamped * (total - 1) - frontIndex;
-      const parallaxY = Math.sin(localProgress * Math.PI) * (-20);
-
-      const video = card.querySelector('video');
-      if (video) {
-        const dur = video.duration || 0;
-        if (dur > 0) {
-          const target = clamped * dur;
-          if (Math.abs(video.currentTime - target) > 0.15) {
-            video.currentTime = target;
-          }
-        }
-        video.style.transform = `translateY(${parallaxY}px)`;
-      } else {
-        const img = card.querySelector('img');
-        if (img) {
-          img.style.filter = `brightness(${0.85 + clamped * 0.15})`;
-          img.style.transform = `translateY(${parallaxY}px) scale(${1 + clamped * 0.03})`;
-        }
       }
     }
 

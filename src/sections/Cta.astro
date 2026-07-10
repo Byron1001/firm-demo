@@ -18,13 +18,13 @@ const t = useTranslations(locale);
 
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10">
     <div class="max-w-[600px]">
-      <h2 class="font-heading text-[clamp(2rem,4vw,3.2rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white mb-4">
+      <h2 class="reveal font-heading text-[clamp(2rem,4vw,3.2rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white mb-4">
         {t.cta.heading}
       </h2>
-      <p class="text-white/60 max-w-[480px] mb-10 text-[1.05rem] leading-relaxed">
+      <p class="reveal text-white/60 max-w-[480px] mb-10 text-[1.05rem] leading-relaxed">
         {t.cta.subtitle}
       </p>
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+      <div class="reveal flex flex-col sm:flex-row gap-3 sm:gap-4">
         <a href={`${import.meta.env.BASE_URL}#contact`}
           class="inline-flex items-center justify-center gap-2.5 bg-accent text-primary font-semibold px-8 py-4 rounded-full hover:bg-accent-dark transition-[background-color,transform] hover:-translate-y-0.5 w-full sm:w-auto min-h-[52px]">
           {t.cta.primary}

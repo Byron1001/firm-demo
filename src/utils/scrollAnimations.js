@@ -51,18 +51,16 @@ export function initScrollReveal() {
 
   els.forEach((el) => {
     el.setAttribute('data-gsap-init', '')
-    const delay = parseFloat(getComputedStyle(el).transitionDelay) || 0
     gsap.fromTo(el,
       { y: 40, opacity: 0 },
       {
         y: 0, opacity: 1,
-        duration: 0.5,
-        delay,
-        ease: 'power3.out',
+        ease: 'none',
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
-          toggleActions: 'play none none none',
+          end: 'top 15%',
+          scrub: true,
         },
       }
     )
@@ -79,36 +77,12 @@ export function initClipReveal() {
       { clipPath: 'inset(0 100% 0 0)' },
       {
         clipPath: 'inset(0 0% 0 0)',
-        duration: 1.1,
-        ease: 'power3.out',
+        ease: 'none',
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      }
-    )
-  })
-}
-
-export function initStaggerReveal() {
-  const wrappers = document.querySelectorAll('.stagger-reveal:not([data-gsap-stagger])')
-  if (!wrappers.length) return
-
-  wrappers.forEach((wrapper) => {
-    wrapper.setAttribute('data-gsap-stagger', '')
-    const items = Array.from(wrapper.children)
-    gsap.fromTo(items,
-      { y: 30, opacity: 0 },
-      {
-        y: 0, opacity: 1,
-        duration: 0.5,
-        ease: 'power3.out',
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: wrapper,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
+          end: 'top 15%',
+          scrub: true,
         },
       }
     )
@@ -125,12 +99,38 @@ export function initBarReveal() {
       { clipPath: 'inset(0 100% 0 0)' },
       {
         clipPath: 'inset(0 0% 0 0)',
-        duration: 0.7,
-        ease: 'power3.out',
+        ease: 'none',
         scrollTrigger: {
           trigger: el,
           start: 'top 90%',
-          toggleActions: 'play none none none',
+          end: 'top 25%',
+          scrub: true,
+        },
+      }
+    )
+  })
+}
+
+export function initStaggerReveal() {
+  const wrappers = document.querySelectorAll('.stagger-reveal:not([data-gsap-stagger])')
+  if (!wrappers.length) return
+
+  wrappers.forEach((wrapper) => {
+    wrapper.setAttribute('data-gsap-stagger', '')
+    const items = Array.from(wrapper.children)
+    if (!items.length) return
+
+    gsap.fromTo(items,
+      { y: 30, opacity: 0 },
+      {
+        y: 0, opacity: 1,
+        stagger: 0.08,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top 80%',
+          end: 'top 15%',
+          scrub: true,
         },
       }
     )
@@ -260,29 +260,37 @@ export function initHeroParallax() {
   const heroContent = document.getElementById('hero-content')
   const heroOverlay = document.getElementById('hero-overlay')
 
-  gsap.to(heroContent, {
-    opacity: 0,
-    y: 60,
-    scale: 0.96,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: hero,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-    },
-  })
+  if (heroContent) {
+    gsap.fromTo(heroContent,
+      { opacity: 1, y: 0, scale: 1 },
+      {
+        opacity: 0, y: 60, scale: 0.96,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    )
+  }
 
-  gsap.to(heroOverlay, {
-    opacity: 1,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: hero,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-    },
-  })
+  if (heroOverlay) {
+    gsap.fromTo(heroOverlay,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    )
+  }
 }
 
 export function initStackReveal() {
@@ -290,20 +298,22 @@ export function initStackReveal() {
   const cards = document.querySelectorAll('.stack-card')
   if (!container || !cards.length) return
 
-  function update() {
-    const rect = container.getBoundingClientRect()
-    const vh = window.innerHeight
-    const total = rect.height - vh
-    const progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0
-
-    cards.forEach((card, i) => {
-      const threshold = (i + 0.5) / cards.length
-      card.classList.toggle('revealed', progress >= threshold)
-    })
-  }
-
-  update()
-  window.addEventListener('scroll', update, { passive: true })
+  cards.forEach((card, i) => {
+    const spin = (card.style.getPropertyValue('--spin') || '0deg').trim()
+    gsap.fromTo(card,
+      { opacity: 0, rotateZ: 20 },
+      {
+        opacity: 1, rotateZ: spin,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: `top ${85 - i * 8}%`,
+          end: `top ${75 - i * 8}%`,
+          scrub: true,
+        },
+      }
+    )
+  })
 }
 
 export function initVideoObserver() {

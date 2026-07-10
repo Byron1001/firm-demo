@@ -14,14 +14,14 @@ const BASE = import.meta.env.BASE_URL;
 <footer class="bg-bg-dark text-white/50 pt-20 pb-8">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
-      <div class="col-span-2 md:col-span-1">
+      <div class="reveal col-span-2 md:col-span-1">
         <span class="font-heading text-xl font-bold text-white">Double Brain Creative &amp; Event SDN BHD</span>
         <p class="text-xs text-white/40 tracking-wide">{t.footer.registration}</p>
         <p class="mt-4 text-sm leading-relaxed max-w-[280px]">
           {t.footer.tagline}
         </p>
       </div>
-      <div>
+      <div class="reveal reveal-delay-1">
         <h4 class="text-xs font-semibold tracking-[0.15em] uppercase text-white/60 mb-4">{t.footer.explore.heading}</h4>
         <ul class="space-y-2.5 text-sm">
           <li><a href={`${BASE}work`} class="hover:text-accent transition-colors duration-300">{t.footer.explore.work}</a></li>
@@ -30,7 +30,7 @@ const BASE = import.meta.env.BASE_URL;
           <li><a href={`${BASE}careers`} class="hover:text-accent transition-colors duration-300">{t.footer.explore.careers}</a></li>
         </ul>
       </div>
-      <div>
+      <div class="reveal reveal-delay-2">
         <h4 class="text-xs font-semibold tracking-[0.15em] uppercase text-white/60 mb-4">{t.footer.connect.heading}</h4>
         <div class="flex flex-wrap gap-3">
           <a href="https://www.facebook.com/DoubleBrainCreative" target="_blank" rel="noopener" class="w-11 h-11 sm:w-11 sm:h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all duration-300" aria-label={t.footer.connect.facebook}>
@@ -53,7 +53,7 @@ const BASE = import.meta.env.BASE_URL;
           </a>
         </div>
       </div>
-      <div>
+      <div class="reveal reveal-delay-3">
         <h4 class="text-xs font-semibold tracking-[0.15em] uppercase text-white/60 mb-4">{t.footer.offices.heading}</h4>
         <ul class="space-y-2.5 text-sm">
           <li class="text-white/35">{t.footer.offices.kl}</li>
@@ -62,7 +62,7 @@ const BASE = import.meta.env.BASE_URL;
         </ul>
       </div>
     </div>
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-xs">
+    <div class="reveal flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-xs">
       <p>{t.footer.copyright.replace('{year}', String(year))}</p>
       <div class="flex gap-6">
         <a href={`${BASE}privacy`} class="hover:text-accent transition-colors">{t.footer.legal.privacy}</a>
